@@ -3,58 +3,74 @@
   import "@fontsource/montserrat"
 
   import axios from "axios";
-  import {ref, watch} from "vue";
+  import {createCommentVNode, ref, watch} from "vue";
   import Card from "@/components/Card.vue";
 
   const apiURL = import.meta.env.VITE_BASEURL;
   const username = import.meta.env.VITE_USERNAME;
   const password = import.meta.env.VITE_PASSWORD;
 
-  console.log(apiURL);
+  // Read ENV variables:
+  // console.log(apiURL);
+  // console.log(username);
+  // console.log(password);
+
+  // Clear localStorage to debug acquiring token
+  localStorage.clear()
 
   const customRequest = axios.create({
       baseURL: apiURL,
       headers: {'Content-Type': 'application/x-www-form-urlencoded'}
   });
 
-  const handleLogin = () => {
+  const getToken = async () => {
       const data = new URLSearchParams();
       data.append('grant_type', '');
       data.append('username', username);
       data.append('password', password);
+      console.log('Performing token request...')
 
-      customRequest
-          .post('/token', data)
-          .then(response=>{
-              const token = response.data.access_token;
-              localStorage.setItem("accessToken", token);
-          })
-          .catch(e=>console.log(e))
+      try {
+          const response = await customRequest.post('/token', data);
+          const token = response.data.access_token;
+          localStorage.setItem('accessToken', token);
+          return token;
+      } catch (error) {
+          console.error(error);
+          throw new Error('Token request failed.');
+      }
   };
 
-  customRequest.interceptors.request.use(config=> {
-      const accessToken = localStorage.getItem("accessToken");
-      if(accessToken){
-          config.headers["Authorization"]=accessToken;
+  const fetchData = async (endpoint) => {
+      try {
+          let token = localStorage.getItem('accessToken');
+          if (!token) {
+              token = await getToken();
+          }
+          const config = {
+              headers: {Authorization: `Bearer ${token}`}
+          };
+          const response = await axios.get(endpoint, config);
+          console.log(response.data);
+
+          return response;
+      } catch (error) {
+          console.error(error);
       }
-      return config;
-  });
+  };
 
-  const config = {
-      headers: {Authorization: `Bearer ${localStorage.getItem("accessToken")}`}
-  }
-
-  handleLogin()
 
   const plants = ref(null)
   const pagination = ref(0)
-  const plants_response = await axios.get("https://api.hesitant.dev/plant?limit=4", config)
+  const plants_response = fetchData(apiURL+'plant?limit=4');
   plants.value = plants_response.data
 
   watch(pagination, async () => {
-      const plants_res = await axios.get(`https://api.hesitant.dev/plant?limit=4&skip=${pagination.value * 4}`, config)
+      const plants_res = await fetchData(apiURL+'plant?limit=4');
       plants.value = plants_res.data
   });
+
+
 
 </script>
 
