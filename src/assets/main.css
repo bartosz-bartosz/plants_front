@@ -1,0 +1,26 @@
+button {
+    min-width: 150px;
+    min-height: 42px;
+    padding: 8px 16px;
+    background: #A7D7C5;
+    font-family: "Montserrat", sans-serif;
+    font-weight: bold;
+    border-radius: 8px;
+    border: solid 1px #0a1f0a;
+    box-shadow: 0 0 12px rgba(44, 80, 72, 0.39);
+}
+
+button:hover {
+    background: #0a1f0a;
+    color: #A7D7C5;
+    cursor: pointer;
+    border: solid 1px #A7D7C5;
+    box-shadow: 0 0 36px rgba(44, 80, 72, 0.39);
+
+}
+
+.species-italic {
+    font-family: "Montserrat", sans-serif;
+    font-style: italic;
+    font-weight: 200;
+}
