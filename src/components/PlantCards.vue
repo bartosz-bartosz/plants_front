@@ -62,8 +62,8 @@
 
   const plants = ref(null)
   const pagination = ref(0)
-  const plants_response = fetchData(apiURL+`plant?limit=4&skip=${pagination.value*4}`);
-  plants.value = plants_response.data
+  const plants_res = fetchData(apiURL+`plant?limit=4&skip=${pagination.value*4}`);
+  plants.value = plants_res.data
 
   watch(pagination, async () => {
       const plants_res = await fetchData(apiURL+`plant?limit=4&skip=${pagination.value*4}`);
