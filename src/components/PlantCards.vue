@@ -3,20 +3,16 @@
   import "@fontsource/montserrat"
 
   import axios from "axios";
-  import {createCommentVNode, ref, watch} from "vue";
+  import { ref, watch, onMounted} from "vue";
   import Card from "@/components/Card.vue";
 
   const apiURL = import.meta.env.VITE_BASEURL;
   const username = import.meta.env.VITE_USERNAME;
   const password = import.meta.env.VITE_PASSWORD;
 
-  // Read ENV variables:
-  // console.log(apiURL);
-  // console.log(username);
-  // console.log(password);
 
   // Clear localStorage to debug acquiring token
-  localStorage.clear()
+  // localStorage.clear()
 
   const customRequest = axios.create({
       baseURL: apiURL,
@@ -61,16 +57,19 @@
 
 
   const plants = ref(null)
-  const pagination = ref(0)
-  const plants_res = fetchData(apiURL+`plant?limit=4&skip=${pagination.value*4}`);
-  plants.value = plants_res.data
+  let pagination = ref(0)
+
+  onMounted(async () =>{
+      console.log('mounted')
+      const plants_res = await fetchData(apiURL+`plant?limit=4&skip=${pagination.value*4}`)
+      plants.value = plants_res.data
+  });
+
 
   watch(pagination, async () => {
       const plants_res = await fetchData(apiURL+`plant?limit=4&skip=${pagination.value*4}`);
       plants.value = plants_res.data
   });
-
-
 
 </script>
 
