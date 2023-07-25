@@ -107,7 +107,7 @@
     </div>
     <div class="pagination">
       <button @click="pagination--">&lt</button>
-        <p>{{ pagination }}</p>
+        <p>{{ pagination + 1 }}</p>
       <button @click="pagination++">></button>
     </div>
   </div>
