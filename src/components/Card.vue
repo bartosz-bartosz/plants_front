@@ -66,7 +66,7 @@
     min-height: 320px;
     margin: 10px 20px;
     border-radius: 10px;
-    background-color: #eaf5ee;
+    background-color: #f4fcf8;
     //border: #3C6255 solid 1px;
     box-shadow: 4px 8px 20px rgba(44, 80, 72, 0.39);
     display: flex;
@@ -78,7 +78,7 @@
     padding: 10px;
     text-align: center;
     color: #2c3e50;
-    font-family: "Montserrat", sans-serif;
+    font-family: "Merriweather", serif;
     font-size: 24px;
 }
 
@@ -86,6 +86,12 @@
     padding: 8px;
     text-align: center;
     font-size: 12pt;
+}
+
+.card p {
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    margin: auto;
 }
 
 .card .last-watering-date {

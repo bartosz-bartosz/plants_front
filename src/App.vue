@@ -1,6 +1,7 @@
 <script setup>
   import {RouterView} from "vue-router";
   import "@fontsource/open-sans";
+  import "@fontsource/merriweather"
 </script>
 
 <template>
@@ -16,7 +17,7 @@ body {
     height: 100%;
     padding: 0;
     margin: 0;
-    background-color: #F4F9F4;
+    background-color: #ffffff;
 }
 
 </style>
