@@ -1,8 +1,14 @@
 <script setup>
   import NavBar from "@/components/NavBar.vue";
   import {useRoute} from "vue-router";
+  import {defineComponent} from "vue";
 
   const route = useRoute()
+
+  const isLoggedIn = function() {
+    return this.$store.getters.isAuthenticated;
+  };
+
 </script>
 
 <template>
