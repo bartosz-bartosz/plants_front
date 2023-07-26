@@ -1,12 +1,13 @@
 <script setup>
   import NavBar from "@/components/NavBar.vue";
+  import Login from "@/components/Login.vue";
 
 </script>
 
 <template>
   <NavBar/>
   <div class="container">
-      <p>No watering function yet :(</p>
+      <Login />
   </div>
 </template>
 

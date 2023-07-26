@@ -1,8 +1,10 @@
 <script setup>
   import NavBar from "@/components/NavBar.vue";
   import {useRoute} from "vue-router";
+  import UserService from "@/services/user.service";
 
   const route = useRoute()
+
 </script>
 
 <template>

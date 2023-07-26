@@ -6,7 +6,7 @@ const API_URL = import.meta.env.VITE_BASEURL;
 class AuthService {
   login(user) {
     return axios
-      .post(API_URL + 'signin', {
+      .post(API_URL + 'token', {
         username: user.username,
         password: user.password
       })
@@ -24,9 +24,8 @@ class AuthService {
   }
 
   register(user) {
-    return axios.post(API_URL + 'signup', {
+    return axios.post(API_URL + 'users/create-api-user', {
       username: user.username,
-      email: user.email,
       password: user.password
     });
   }

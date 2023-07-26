@@ -90,6 +90,7 @@
   watch(pagination, async () => {
       const plants_res = await fetchData(apiURL+`plant?limit=4&skip=${pagination.value*4}`);
       plants.value = plants_res.data
+      console.log(pagination.value)
   });
 
 </script>
