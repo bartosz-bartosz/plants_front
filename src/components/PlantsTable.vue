@@ -1,7 +1,7 @@
 <script setup>
   import {onMounted, ref} from "vue";
   import {fetchData, apiURL} from "../services/apiService";
-  import {formatDateTime} from "../services/dataParsing"
+  import {formatDateTime, timeAgo} from "../services/dataParsing"
 
   const plants = ref(null)
   let pagination = ref(0)
@@ -19,17 +19,22 @@
     <table class="plants-table">
       <thead>
         <tr>
+          <th>x</th>
           <th>Name</th>
           <th>Species</th>
           <th>Last watering</th>
-
+          <th>Water every...</th>
+          <th>Water!</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="plant in plants" :key="plant.id">
+          <th><input type="checkbox"></th>
           <td>{{ plant.name }}</td>
           <td class="species-italic">{{ plant.species }}</td>
-          <td>{{ formatDateTime(plant.last_watering) }}</td>
+          <td>{{ timeAgo(plant.last_watering) }}</td>
+          <td>{{ plant.watering_frequency }} days</td>
+          <td><button>Water!</button></td>
         </tr>
 
       </tbody>
@@ -40,12 +45,12 @@
 <style scoped>
 
 .table-wrapper {
-  margin: 10px 70px 70px;
+  margin: 48px 70px 70px;
   box-shadow: 0 15px 25px rgba( 0, 0, 0, 0.2 );
+  border-radius: 20px;
 }
 
 .plants-table {
-  border-radius: 15px;
   font-size: 14px;
   font-weight: normal;
   border: none;
@@ -53,8 +58,9 @@
   width: 100%;
   max-width: 100%;
   white-space: nowrap;
-  background-color: #eefff8;
+  background-color: #ffffff;
   font-family: "Montserrat", sans-serif;
+  border-radius: 15px;
 }
 
 .plants-table td, .plants-table th {
@@ -63,9 +69,9 @@
 }
 
 .plants-table td {
-    border-right: 1px solid #f8f8f8;
     font-size: 14px;
-    padding: 12px 24px;
+    padding: 12px 32px;
+    min-width: 200px;
 }
 .plants-table thead th {
     color: #ffffff;
@@ -78,8 +84,11 @@
 }
 
 .plants-table tr:nth-child(even) {
-    background: #F8F8F8;
+    background: #effdf1;
 }
 
+.plants-table tr:last-child {
+  border-radius: 0 20px;
+}
 
 </style>
