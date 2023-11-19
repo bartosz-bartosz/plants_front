@@ -25,6 +25,18 @@
       plants.value = plants_res.data
   });
 
+  function prevPage() {
+    if (pagination.value > 0) {
+      pagination.value--
+    }
+  }
+
+  function nextPage() {
+    if (pagination.value < Object.keys(plants).length) {
+      pagination.value++
+    }
+  }
+
 </script>
 
 <template>
@@ -39,9 +51,9 @@
       />
     </div>
     <div class="pagination">
-      <button @click="pagination--">&lt</button>
+      <button @click="prevPage">&lt</button>
         <p>{{ pagination + 1 }}</p>
-      <button @click="pagination++">></button>
+      <button @click="nextPage">></button>
     </div>
   </div>
 
@@ -59,7 +71,7 @@
 
 .plants-container {
     margin: auto;
-    min-height: 50%;
+    min-height: 20%;
     width: 80%;
     border: #2c3e50 1px solid;
     border-radius: 10px;
@@ -69,6 +81,6 @@
     margin: 48px auto;
     display: flex;
     justify-content: center;
-    column-gap: 12px;
+    column-gap: 48px;
 }
 </style>

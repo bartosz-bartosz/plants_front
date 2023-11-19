@@ -1,38 +1,40 @@
 <script setup>
-
+  import { ref } from "vue";
   import NavBar from "@/components/NavBar.vue";
   import PlantCard from "@/components/PlantCards.vue";
+  import PlantsTable from "@/components/PlantsTable.vue";
+
+  let listview = ref(true);
 
 </script>
 
 <template>
   <NavBar/>
   <div class="main">
-  <h1>PLANTS</h1>
-    <Suspense>
-        <template #default>
-          <PlantCard/>
-        </template>
-        <template #fallback>
-          <div>
-            <p> Loading...</p>
-          </div>
-        </template>
-    </Suspense>
+    <h1>PLANTS</h1>
+    <div class="button-container">
+      <button id="list-toggle" @click="listview = !listview">{{ listview ? 'Show Table' : 'Show Cards' }}</button>
+    </div>
+    <template v-if="listview">
+      <PlantCard/>
+    </template>
+    <template v-else>
+      <PlantsTable/>
+    </template>
   </div>
 </template>
 
 <style scoped>
 
-template {
-    margin: auto;
-}
-
 .main {
     margin-top: 24px;
     width: 100%;
-    min-height: 1200px;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
+    text-align: center;
 }
 
 .main h1 {
@@ -40,12 +42,11 @@ template {
     color: #2c3e50;
     font-family: "Montserrat",sans-serif;
     font-size: 24px;
-    text-align: center;
-
 }
 
-p {
-    margin: auto;
+.button-container {
+    margin-left: auto;
+    margin-right: 10%;
 }
 
 </style>
