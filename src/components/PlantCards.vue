@@ -5,9 +5,7 @@
   import { ref, watch, onMounted} from "vue";
   import Card from "@/components/Card.vue";
 
-  import { fetchData } from '@/services/apiService';
-
-  const apiURL = import.meta.env.VITE_BASEURL;
+  import { fetchData, apiURL } from '@/services/apiService';
 
   // Clear localStorage to debug acquiring token
   localStorage.clear()

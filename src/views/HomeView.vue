@@ -1,8 +1,17 @@
 <script setup>
   import NavBar from "@/components/NavBar.vue";
   import {useRoute} from "vue-router";
+  import { fetchData, apiURL } from '@/services/apiService';
+  import { ref, onMounted } from "vue";
 
   const route = useRoute()
+  let user_data = ref(null)
+
+  onMounted(async () =>{
+    const user_res = await fetchData(apiURL+`users/me`);
+    user_data.value = user_res.data.username
+  });
+
 </script>
 
 <template>
@@ -10,6 +19,7 @@
       <NavBar/>
       <div class="main">
         <h1>HOME</h1>
+        <h2 class="user-welcome">Welcome, {{ user_data }}!</h2>
       </div>
   </div>
 </template>
@@ -28,6 +38,10 @@
     font-family: "Montserrat",sans-serif;
     font-size: 24px;
     text-align: center;
+}
 
+.user-welcome {
+  text-align: center;
+  margin: 24px auto auto;
 }
 </style>

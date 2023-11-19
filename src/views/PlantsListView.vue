@@ -14,7 +14,9 @@
           <PlantCard/>
         </template>
         <template #fallback>
-          <p> Loading...</p>
+          <div>
+            <p> Loading...</p>
+          </div>
         </template>
     </Suspense>
   </div>
