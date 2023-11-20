@@ -2,6 +2,7 @@
   import {onMounted, ref} from "vue";
   import {fetchData, apiURL} from "../services/apiService";
   import {formatDateTime, timeAgo} from "../services/dataParsing"
+  import { NSpin } from 'naive-ui'
 
   const plants = ref(null)
   let pagination = ref(0)
@@ -15,9 +16,7 @@
 </script>
 
 <template>
-  <NSpin size="large"/>
-  <h1>TEST</h1>
-  <div class="table-wrapper">
+  <div class="table-wrapper" v-if="plants !== null">
     <table class="plants-table">
       <thead>
         <tr>
@@ -29,27 +28,20 @@
           <th>Water!</th>
         </tr>
       </thead>
-      <Suspense>
-        <template #default>
-          <tbody>
-            <tr v-for="plant in plants" :key="plant.id">
-              <th><input type="checkbox"></th>
-              <td>{{ plant.name }}</td>
-              <td class="species-italic">{{ plant.species }}</td>
-              <td>{{ timeAgo(plant.last_watering) }}</td>
-              <td>{{ plant.watering_frequency }} days</td>
-              <td><button>Water!</button></td>
-            </tr>
-          </tbody>
-        </template>
-        <template #fallback>
-          <div class="cards spinner">
-            <NSpin size="large"/>
-          </div>
-          <p>LOADING DATA</p>
-        </template>
-      </Suspense>
+        <tbody>
+          <tr v-for="plant in plants" :key="plant.id">
+            <th><input type="checkbox"></th>
+            <td>{{ plant.name }}</td>
+            <td class="species-italic">{{ plant.species }}</td>
+            <td>{{ timeAgo(plant.last_watering) }}</td>
+            <td>{{ plant.watering_frequency }} days</td>
+            <td><button>Water!</button></td>
+          </tr>
+        </tbody>
     </table>
+  </div>
+  <div class="spinner" v-else>
+    <NSpin size="large"/>
   </div>
 </template>
 
@@ -100,6 +92,10 @@
 
 .plants-table tr:last-child {
   border-radius: 0 20px;
+}
+
+.spinner {
+  margin-top: 220px;
 }
 
 </style>
