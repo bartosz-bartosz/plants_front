@@ -15,6 +15,8 @@
 </script>
 
 <template>
+  <NSpin size="large"/>
+  <h1>TEST</h1>
   <div class="table-wrapper">
     <table class="plants-table">
       <thead>
@@ -27,17 +29,26 @@
           <th>Water!</th>
         </tr>
       </thead>
-      <tbody>
-        <tr v-for="plant in plants" :key="plant.id">
-          <th><input type="checkbox"></th>
-          <td>{{ plant.name }}</td>
-          <td class="species-italic">{{ plant.species }}</td>
-          <td>{{ timeAgo(plant.last_watering) }}</td>
-          <td>{{ plant.watering_frequency }} days</td>
-          <td><button>Water!</button></td>
-        </tr>
-
-      </tbody>
+      <Suspense>
+        <template #default>
+          <tbody>
+            <tr v-for="plant in plants" :key="plant.id">
+              <th><input type="checkbox"></th>
+              <td>{{ plant.name }}</td>
+              <td class="species-italic">{{ plant.species }}</td>
+              <td>{{ timeAgo(plant.last_watering) }}</td>
+              <td>{{ plant.watering_frequency }} days</td>
+              <td><button>Water!</button></td>
+            </tr>
+          </tbody>
+        </template>
+        <template #fallback>
+          <div class="cards spinner">
+            <NSpin size="large"/>
+          </div>
+          <p>LOADING DATA</p>
+        </template>
+      </Suspense>
     </table>
   </div>
 </template>

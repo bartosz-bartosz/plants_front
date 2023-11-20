@@ -15,12 +15,12 @@
     <div class="button-container">
       <button id="list-toggle" @click="listview = !listview">{{ listview ? 'Show Table' : 'Show Cards' }}</button>
     </div>
-    <template v-if="listview">
-      <PlantCard/>
-    </template>
-    <template v-else>
-      <PlantsTable/>
-    </template>
+      <template v-if="listview">
+        <PlantCard/>
+      </template>
+      <template v-else>
+        <PlantsTable/>
+      </template>
   </div>
 </template>
 
