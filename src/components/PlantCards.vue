@@ -1,6 +1,7 @@
 <script setup>
   import "@fontsource/open-sans";
-  import "@fontsource/montserrat"
+  import "@fontsource/montserrat";
+  import { NSpin } from "naive-ui";
 
   import { ref, watch, onMounted} from "vue";
   import Card from "@/components/Card.vue";
@@ -40,7 +41,7 @@
 </script>
 
 <template>
-  <div class="main">
+  <div class="main" v-if="plants !== null">
     <div class="cards">
       <Card
         v-for="plant in plants" :key="plant.id"
@@ -50,11 +51,15 @@
         :watering_frequency="plant.watering_frequency"
       />
     </div>
+
     <div class="pagination">
       <button @click="prevPage">&lt</button>
         <p>{{ pagination + 1 }}</p>
       <button @click="nextPage">></button>
     </div>
+  </div>
+  <div class="spinner" v-else>
+    <NSpin size="large"/>
   </div>
 
 </template>
@@ -69,18 +74,14 @@
     justify-content: space-around;
 }
 
-.plants-container {
-    margin: auto;
-    min-height: 20%;
-    width: 80%;
-    border: #2c3e50 1px solid;
-    border-radius: 10px;
-}
-
 .pagination {
     margin: 48px auto;
     display: flex;
     justify-content: center;
     column-gap: 48px;
+}
+
+.spinner {
+  margin-top: 220px;
 }
 </style>

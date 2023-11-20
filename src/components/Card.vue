@@ -39,7 +39,7 @@
 
 <template>
   <div class="card">
-      <div>
+      <div class="title-card-section">
         <h2>{{ name }}</h2>
         <div class="line"></div>
         <h3 class="species-italic">{{ species }}</h3>
@@ -57,7 +57,7 @@
     margin: auto;
     height: 1px;
     width: 60%;
-    background-color: #2c3e50;
+    background-color: #161f13;
 
 }
 
@@ -66,24 +66,23 @@
     min-height: 320px;
     margin: 10px 20px;
     border-radius: 10px;
-    background-color: #f4fcf8;
+    background-color: #ffffff;
     //border: #3C6255 solid 1px;
-    box-shadow: 4px 8px 20px rgba(44, 80, 72, 0.39);
+    box-shadow: 4px 8px 20px rgba(22, 31, 19, 0.39);
     display: flex;
     flex-direction: column;
 
 }
 
 .card h2 {
-    padding: 10px;
     text-align: center;
-    color: #2c3e50;
+    color: #161f13;
     font-family: "Merriweather", serif;
     font-size: 24px;
 }
 
+
 .card h3 {
-    padding: 8px;
     text-align: center;
     font-size: 12pt;
 }
@@ -102,6 +101,10 @@
 .card .watering-fq-text {
     margin: auto;
     text-align: center;
+}
+
+.card .title-card-section {
+  background-image: radial-gradient(at 50% 0%, #eaf1d6 65%, #fff 100%);
 }
 
 

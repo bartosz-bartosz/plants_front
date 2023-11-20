@@ -39,7 +39,7 @@
 
 .main h1 {
     //border: #2c3e50 1px solid;
-    color: #2c3e50;
+    color: #161f13;
     font-family: "Montserrat",sans-serif;
     font-size: 24px;
 }

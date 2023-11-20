@@ -8,21 +8,25 @@
     src: local("Montserrat")
 }
 
+p {
+    color: #333;
+}
+
 button {
     min-width: 150px;
     min-height: 36px;
     padding: 8px 12px;
-    background: #93f1a1;
+    background: #9dc08b;
     font-family: "Montserrat", sans-serif;
     font-weight: bold;
-    border-radius: 8px;
-    border: solid 1px #2a6534;
+    border-radius: 10px;
+    border: solid 1px #A0C49D;
     /*box-shadow: 0 0 12px rgba(44, 80, 72, 0.39);*/
 }
 
 button:hover {
-    background: #47ab57;
-    /*color: #93f1a1;*/
+    background: #40513B;
+    color: #9dc08b;
     cursor: pointer;
     /*border: solid 1px #A7D7C5;*/
     /*box-shadow: 0 0 36px rgba(44, 80, 72, 0.39);*/

@@ -37,15 +37,15 @@
       color: #333;
       cursor: pointer;
       padding-bottom: 10px ;
-      border-bottom: #A7D7C5 8px solid;
+      border-bottom: #EDF1D6 8px solid;
   }
 
   .links .link:hover {
-      border-bottom-color: #3C6255;
+      border-bottom-color: #40513B;
   }
 
   .links .link.active {
-  border-bottom-color: #3C6255;
+  border-bottom-color: #40513B;
   }
 
   .logo {
@@ -53,14 +53,14 @@
       font-size: 36px;
       font-weight: bold;
       text-decoration: none;
-      color: #3C6255;
+      color: #40513B;
       padding-bottom: 10px;
-      border-bottom: #A7D7C5 8px solid;
+      border-bottom: #EDF1D6 8px solid;
       cursor: pointer;
   }
 
   .logo:hover {
-      border-bottom-color: #3C6255;
+      border-bottom-color: #40513B;
   }
 
 </style>

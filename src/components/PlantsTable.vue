@@ -1,8 +1,8 @@
 <script setup>
   import {onMounted, ref} from "vue";
   import {fetchData, apiURL} from "../services/apiService";
-  import {formatDateTime, timeAgo} from "../services/dataParsing"
-  import { NSpin } from 'naive-ui'
+  import {formatDateTime, timeAgo} from "../services/dataParsing";
+  import { NSpin } from 'naive-ui';
 
   const plants = ref(null)
   let pagination = ref(0)
@@ -78,22 +78,34 @@
 }
 .plants-table thead th {
     color: #ffffff;
-    background: #49b25b;
+    background: #40513B;
+    padding: 16px;
 }
 
 .plants-table thead th:nth-child(odd) {
     color: #ffffff;
-    background: #2a6534;
+    background: #40513B;
 }
 
 .plants-table tr:nth-child(even) {
-    background: #effdf1;
+    background: #eaf1d6;
 }
 
 .plants-table tr:last-child {
   border-radius: 0 20px;
 }
 
+.plants-table button {
+  background: #9dd2f1;
+  border-color: #9dd2f1;
+  border-radius: 20px;
+  min-width: 80px;
+}
+.plants-table button:hover {
+  background: rgba(106, 192, 243, 0.99);
+  border-color: #8bc8ec;
+  color: #333;
+}
 .spinner {
   margin-top: 220px;
 }
