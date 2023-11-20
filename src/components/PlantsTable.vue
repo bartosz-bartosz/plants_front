@@ -96,16 +96,10 @@
 }
 
 .plants-table button {
-  background: #9dd2f1;
-  border-color: #9dd2f1;
   border-radius: 20px;
   min-width: 80px;
 }
-.plants-table button:hover {
-  background: rgba(106, 192, 243, 0.99);
-  border-color: #8bc8ec;
-  color: #333;
-}
+
 .spinner {
   margin-top: 220px;
 }
