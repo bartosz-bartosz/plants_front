@@ -20,12 +20,12 @@
     <table class="plants-table">
       <thead>
         <tr>
-          <th>x</th>
-          <th>Name</th>
-          <th>Species</th>
-          <th>Last watering</th>
-          <th>Water every...</th>
-          <th>Water!</th>
+          <th><font-awesome-icon icon="fa-circle-check" /></th>
+          <th><font-awesome-icon icon="address-card" /> Name</th>
+          <th><font-awesome-icon icon="dna" /> Species</th>
+          <th><font-awesome-icon icon="calendar-day" /> Last watering</th>
+          <th><font-awesome-icon icon="stopwatch" /> Every...</th>
+          <th><font-awesome-icon icon="droplet" /> Water!</th>
         </tr>
       </thead>
         <tbody>
@@ -76,10 +76,19 @@
     padding: 12px 32px;
     min-width: 200px;
 }
+
 .plants-table thead th {
     color: #ffffff;
     background: #40513B;
     padding: 16px;
+}
+
+.plants-table thead th:nth-child(1) {
+  border-radius: 20px 0 0 0;
+}
+
+.plants-table thead th:nth-last-child(1) {
+  border-radius: 0 20px 0 0;
 }
 
 .plants-table thead th:nth-child(odd) {

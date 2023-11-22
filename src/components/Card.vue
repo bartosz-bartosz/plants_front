@@ -104,7 +104,9 @@
 }
 
 .card .title-card-section {
-  background-image: radial-gradient(at 50% 0%, #eaf1d6 65%, #fff 100%);
+  //background-image: radial-gradient(circle farthest-corner at 50% 0%, #eaf1d6 40%, #fff 75%);
+  background: linear-gradient(180deg, rgba(234, 241, 214, 1) 30%, rgba(255, 255, 255, 1) 100%);
+  border-radius: 10px;
 }
 
 

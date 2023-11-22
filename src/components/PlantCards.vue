@@ -53,9 +53,9 @@
     </div>
 
     <div class="pagination">
-      <button @click="prevPage">&lt</button>
+      <button class="pagination-button" @click="prevPage"><font-awesome-icon icon="angle-left" /></button>
         <p>{{ pagination + 1 }}</p>
-      <button @click="nextPage">></button>
+      <button class="pagination-button" @click="nextPage"><font-awesome-icon icon="angle-right" /></button>
     </div>
   </div>
   <div class="spinner" v-else>
@@ -79,6 +79,11 @@
     display: flex;
     justify-content: center;
     column-gap: 48px;
+}
+
+.pagination-button {
+  border-radius: 50px;
+  width: ;
 }
 
 .spinner {
