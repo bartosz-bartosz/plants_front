@@ -111,6 +111,8 @@
 
 .spinner {
   margin-top: 220px;
+  color: black;
 }
+
 
 </style>

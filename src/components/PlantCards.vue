@@ -3,7 +3,7 @@
   import "@fontsource/montserrat";
   import { NSpin } from "naive-ui";
 
-  import { ref, watch, onMounted} from "vue";
+  import { ref, reactive, watch, onMounted} from "vue";
   import Card from "@/components/Card.vue";
 
   import { fetchData, apiURL } from '@/services/apiService';
@@ -12,7 +12,7 @@
   localStorage.clear()
 
   const plants = ref(null)
-  let pagination = ref(0)
+  const pagination = ref(0)
 
   onMounted(async () =>{
       console.log('mounted');

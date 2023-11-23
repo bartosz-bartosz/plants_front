@@ -1,11 +1,19 @@
 <script setup>
   import "@fontsource/montserrat"
   import {RouterLink} from "vue-router";
+  import { ref } from "vue";
+
+  const isHovered = ref(false)
 </script>
 
 <template>
     <div class="navbar">
-      <RouterLink to="/" tag="h1" class="logo">Plants</RouterLink>
+      <Transition name="logo-hover">
+        <RouterLink to="/" tag="h1" class="logo"
+                    @mouseover="isHovered=true" @mouseleave="isHovered=false">
+          Plants</RouterLink>
+      </Transition>
+      <p v-if="isHovered">Test</p>
       <div class="links">
       <RouterLink to="/" :class="{'link': true, 'active': $route.path === '/'}">HOME</RouterLink>
       <RouterLink to="/my-plants" :class="{'link': true, 'active': $route.path === '/my-plants'}">PLANTS</RouterLink>
@@ -60,7 +68,20 @@
   }
 
   .logo:hover {
-      border-bottom-color: #40513B;
+      border-bottom: #40513B 8px solid;
   }
+  .logo-hover-enter-active {
+    transition: all 2s ease;
+  }
+
+  .logo-hover-enter-from {
+    border-bottom: #EDF1D6 8px solid;
+  }
+
+  .logo-hover-enter-to, .logo-hover-leave-to {
+    border-bottom: #40513B 8px solid;
+  }
+
+
 
 </style>
