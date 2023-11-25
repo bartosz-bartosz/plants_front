@@ -1,22 +1,52 @@
 <script setup>
-  import {onMounted, ref, provide} from "vue";
+import {onMounted, ref, provide, watch} from "vue";
   import NavBar from "@/components/NavBar.vue";
   import PlantCard from "@/components/PlantCards.vue";
   import PlantsTable from "@/components/PlantsTable.vue";
   import {apiURL, fetchData} from "../services/apiService";
 
   let listview = ref(true);
-
+  let itemsLimit = ref(12)
   const plants = ref(null)
+  const plants_count = ref(0)
   let pagination = ref(0)
 
   onMounted(async () =>{
-      console.log('mounted');
-      const plants_res = await fetchData(apiURL+`plant?limit=20&skip=${pagination.value*4}`);
+      const plants_count_res = await fetchData(apiURL+`plant/count`)
+      plants_count.value = plants_count_res.data.count
+
+      const plants_res = await fetchData(apiURL+`plant?limit=${itemsLimit.value}&skip=${pagination.value*itemsLimit.value}`);
       plants.value = plants_res.data
   });
 
+  watch(pagination, async () => {
+      const plants_res = await fetchData(apiURL+`plant?limit=${itemsLimit.value}&skip=${pagination.value*itemsLimit.value}`);
+      plants.value = plants_res.data
+  });
+
+
+  function prevPage() {
+    if (pagination.value > 0) {
+      pagination.value--
+    }
+  }
+
+  function nextPage() {
+    console.log("pagination:", pagination.value + 1)
+    console.log("items limit:", itemsLimit.value)
+    console.log("plants count:", plants_count.value)
+    console.log((pagination.value + 1) * itemsLimit.value < plants_count.value)
+    if ((pagination.value + 1) * itemsLimit.value < plants_count.value) {
+      pagination.value++
+    }
+  }
+
+  function toggleView() {
+    listview.value = !listview.value
+  }
+
   provide("plants", plants)
+  provide("pagination", pagination)
 
 </script>
 
@@ -25,7 +55,7 @@
   <div class="main">
     <h1>PLANTS</h1>
     <div class="button-container">
-      <button id="list-toggle" @click="listview = !listview">{{ listview ? 'Show Table' : 'Show Cards' }}</button>
+      <button id="list-toggle" @click="toggleView">{{ listview ? 'Show Table' : 'Show Cards' }}</button>
     </div>
       <template v-if="listview">
         <PlantCard/>
@@ -33,6 +63,11 @@
       <template v-else>
         <PlantsTable/>
       </template>
+    <div class="pagination">
+      <button class="pagination-button" @click="prevPage"><font-awesome-icon icon="angle-left" /></button>
+        <p>{{ pagination + 1 }}</p>
+      <button class="pagination-button" @click="nextPage"><font-awesome-icon icon="angle-right" /></button>
+    </div>
   </div>
 </template>
 
@@ -59,6 +94,17 @@
 .button-container {
     margin-left: auto;
     margin-right: 10%;
+}
+
+.pagination {
+    margin: 48px auto;
+    display: flex;
+    justify-content: center;
+    column-gap: 48px;
+}
+
+.pagination-button {
+  border-radius: 50px;
 }
 
 </style>

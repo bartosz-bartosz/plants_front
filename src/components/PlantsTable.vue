@@ -1,17 +1,14 @@
 <script setup>
-  import {onMounted, ref} from "vue";
+import {inject, onMounted, ref} from "vue";
   import {fetchData, apiURL} from "../services/apiService";
   import {formatDateTime, timeAgo} from "../services/dataParsing";
   import { NSpin } from 'naive-ui';
 
-  const plants = ref(null)
+  // const plants = ref(null)
+  const plants =inject("plants")
+
   let pagination = ref(0)
 
-  onMounted(async () =>{
-      console.log('mounted');
-      const plants_res = await fetchData(apiURL+`plant?limit=20&skip=${pagination.value*4}`);
-      plants.value = plants_res.data
-  });
 
 </script>
 
