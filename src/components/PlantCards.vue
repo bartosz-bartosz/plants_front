@@ -6,20 +6,11 @@
   import { ref, reactive, watch, onMounted, inject} from "vue";
   import Card from "@/components/Card.vue";
 
-  import { fetchData, apiURL } from '@/services/apiService';
-
   // Clear localStorage to debug acquiring token
   localStorage.clear()
 
-  // const plants = ref(null)
   const plants =inject("plants")
-  const pagination = inject("pagination")
 
-  // onMounted(async () =>{
-  //     console.log('mounted');
-  //     const plants_res = await fetchData(apiURL+`plant?limit=4&skip=${pagination.value*4}`);
-  //     plants.value = plants_res.data
-  // });
 </script>
 
 <template>
@@ -45,15 +36,15 @@
 <style scoped>
 
 .cards {
+
     width: 80%;
     margin: 60px auto auto;
-    justify-content: left;
-
-    display: flex;
-    flex-flow:row wrap;
-    gap: 48px;
+    //flex-flow:row wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 320px);
+    grid-gap: 2rem;
+    justify-content: space-around;
 }
-
 
 .spinner {
   margin-top: 220px;

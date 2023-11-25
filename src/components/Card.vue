@@ -62,9 +62,9 @@
 }
 
 .card {
-    width: 20%;
-    min-height: 320px;
-    margin: 10px 20px;
+    min-width: 320px;
+    max-width: 20%;
+    min-height: 400px;
     border-radius: 10px;
     background-color: #ffffff;
     //border: #3C6255 solid 1px;

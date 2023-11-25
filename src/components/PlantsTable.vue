@@ -45,6 +45,7 @@ import {inject, onMounted, ref} from "vue";
 <style scoped>
 
 .table-wrapper {
+  width: 80%;
   margin: 48px 70px 70px;
   box-shadow: 0 15px 25px rgba( 0, 0, 0, 0.2 );
   border-radius: 20px;

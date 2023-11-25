@@ -32,10 +32,6 @@ import {onMounted, ref, provide, watch} from "vue";
   }
 
   function nextPage() {
-    console.log("pagination:", pagination.value + 1)
-    console.log("items limit:", itemsLimit.value)
-    console.log("plants count:", plants_count.value)
-    console.log((pagination.value + 1) * itemsLimit.value < plants_count.value)
     if ((pagination.value + 1) * itemsLimit.value < plants_count.value) {
       pagination.value++
     }
@@ -53,7 +49,7 @@ import {onMounted, ref, provide, watch} from "vue";
 <template>
   <NavBar/>
   <div class="main">
-    <h1>PLANTS</h1>
+    <h1>MY PLANTS</h1>
     <div class="button-container">
       <button id="list-toggle" @click="toggleView">{{ listview ? 'Show Table' : 'Show Cards' }}</button>
     </div>
@@ -65,7 +61,7 @@ import {onMounted, ref, provide, watch} from "vue";
       </template>
     <div class="pagination">
       <button class="pagination-button" @click="prevPage"><font-awesome-icon icon="angle-left" /></button>
-        <p>{{ pagination + 1 }}</p>
+        <p class="pagination-counter">{{ pagination + 1 }} / {{ Math.ceil(plants_count / itemsLimit) }}</p>
       <button class="pagination-button" @click="nextPage"><font-awesome-icon icon="angle-right" /></button>
     </div>
   </div>
