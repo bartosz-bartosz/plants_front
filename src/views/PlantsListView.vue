@@ -1,10 +1,22 @@
 <script setup>
-  import { ref } from "vue";
+  import {onMounted, ref, provide} from "vue";
   import NavBar from "@/components/NavBar.vue";
   import PlantCard from "@/components/PlantCards.vue";
   import PlantsTable from "@/components/PlantsTable.vue";
+  import {apiURL, fetchData} from "../services/apiService";
 
   let listview = ref(true);
+
+  const plants = ref(null)
+  let pagination = ref(0)
+
+  onMounted(async () =>{
+      console.log('mounted');
+      const plants_res = await fetchData(apiURL+`plant?limit=20&skip=${pagination.value*4}`);
+      plants.value = plants_res.data
+  });
+
+  provide("plants", plants)
 
 </script>
 

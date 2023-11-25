@@ -28,16 +28,19 @@
 .main {
     margin-top: 24px;
     width: 100%;
-    min-height: 1200px;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
+    text-align: center;
 }
 
 .main h1 {
     //border: #2c3e50 1px solid;
-    color: #2c3e50;
+    color: #161f13;
     font-family: "Montserrat",sans-serif;
     font-size: 24px;
-    text-align: center;
 }
 
 .user-welcome {
