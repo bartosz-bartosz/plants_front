@@ -42,7 +42,7 @@
     //flex-flow:row wrap;
     display: grid;
     grid-template-columns: repeat(auto-fill, 320px);
-    grid-gap: 2rem;
+    grid-gap: 1rem;
     justify-content: space-around;
 }
 

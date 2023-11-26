@@ -6,7 +6,7 @@ import {onMounted, ref, provide, watch} from "vue";
   import {apiURL, fetchData} from "../services/apiService";
 
   let listview = ref(true);
-  let itemsLimit = ref(12)
+  let itemsLimit = ref(24)
   const plants = ref(null)
   const plants_count = ref(0)
   let pagination = ref(0)
