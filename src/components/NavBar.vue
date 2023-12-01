@@ -18,6 +18,7 @@
       <RouterLink to="/" :class="{'link': true, 'active': $route.path === '/'}">HOME</RouterLink>
       <RouterLink to="/my-plants" :class="{'link': true, 'active': $route.path === '/my-plants'}">PLANTS</RouterLink>
       <RouterLink to="/watering" :class="{'link': true, 'active': $route.path === '/watering'}">WATERING</RouterLink>
+      <RouterLink to="/signup" :class="{'link': true, 'active': $route.path === '/signup'}">SIGN UP</RouterLink>
       </div>
     </div>
 </template>
@@ -53,7 +54,7 @@
   }
 
   .links .link.active {
-  border-bottom-color: #40513B;
+      border-bottom-color: #40513B;
   }
 
   .logo {
@@ -81,7 +82,5 @@
   .logo-hover-enter-to, .logo-hover-leave-to {
     border-bottom: #40513B 8px solid;
   }
-
-
 
 </style>

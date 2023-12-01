@@ -12,6 +12,21 @@ p {
     color: #333;
 }
 
+h2, h3, h4 {
+    text-align: center;
+    color: #161f13;
+    font-family: "Montserrat", serif;
+    font-size: 24px;
+}
+
+h3 {
+    font-size: 18px;
+}
+
+h4 {
+    font-size: 16px;
+}
+
 button {
     min-width: 50px;
     min-height: 36px;
@@ -30,6 +45,36 @@ button:hover {
     cursor: pointer;
     /*border: solid 1px #A7D7C5;*/
     /*box-shadow: 0 0 36px rgba(44, 80, 72, 0.39);*/
+}
+
+button.bigger-button {
+    padding: 16px 32px;
+    min-width: 180px;
+    border-radius: 16px;
+}
+
+input {
+    min-height: 38px;
+    border: solid 0;
+    border-radius: 10px;
+    box-shadow: 0 0 12px rgba(44, 80, 72, 0.39);
+
+    padding: 5px 20px;
+    font-family: Prompt, sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+    color: #2a6534;
+}
+
+input::selection {
+    background-color: #40513B; /* Set the background color for selected text */
+    color: #dcf8df; /* Set the text color for selected text */
+}
+
+input:focus {
+    outline: 1px solid #9dc08b;
+    caret-color: #9dc08b;
+    box-shadow: 0 0 6px 2px rgba(157, 192, 139, 0.42) inset;
 }
 
 .species-italic {

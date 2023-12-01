@@ -53,14 +53,6 @@
 
 <style scoped>
 
-.line {
-    margin: auto;
-    height: 1px;
-    width: 60%;
-    background-color: #161f13;
-
-}
-
 .card {
     min-width: 320px;
     max-width: 20%;
