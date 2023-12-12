@@ -2,7 +2,6 @@
   import "@fontsource/montserrat"
   import {RouterLink} from "vue-router";
   import { ref } from "vue";
-  import AuthModal from "./AuthModal.vue"
 
   const isHovered = ref(false)
 </script>

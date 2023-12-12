@@ -12,11 +12,17 @@ export const useUserStore =
         const {username, password} = credentials
 
         if(username.length < 6){
+            console.log('tooshort username')
             return errorMessage.value = "Username too short."
         }
 
         if(password.length < 6){
+            console.log('tooshort password')
             return errorMessage.value = "Password too short."
+        }
+
+        else {
+            console.log('signup credentials ok')
         }
     }
 

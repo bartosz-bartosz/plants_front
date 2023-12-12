@@ -1,10 +1,18 @@
 <script setup>
   import NavBar from "@/components/NavBar.vue";
   import {useUserStore} from "@/stores/users";
+  import {reactive, ref} from "vue";
+  import {storeToRefs} from "pinia";
 
   const userStore = useUserStore()
 
-  const {errorMessage, hangleSignup} = userStore;
+  const {errorMessage, handleSignup} = storeToRefs(userStore);
+
+  // const userCredentials = ref(null)
+  const userCredentials = reactive({
+    username: "",
+    password: ""
+  })
 </script>
 
 <template>
@@ -12,16 +20,18 @@
   <div class="main">
     <div class="tile-block">
       <h2>Welcome!</h2>
+      {{userCredentials.username}}
+      {{userCredentials.password}}
       <div class="line"></div>
       <div class="signup-wrapper">
         <h4 class="field-name">Username</h4>
-        <input type="text" class="standard-input"/>
+        <input type="text" class="standard-input" v-model="userCredentials.username"/>
       </div>
       <div class="signup-wrapper">
         <h4 class="field-name">Password</h4>
-        <input type="text" class="standard-input"/>
+        <input type="text" class="standard-input" v-model="userCredentials.password"/>
       </div>
-      <button id="create-account" class="bigger-button">Create account</button>
+      <button id="create-account" class="bigger-button" @click="handleSignup(userCredentials)">Create account</button>
     </div>
   </div>
 </template>
