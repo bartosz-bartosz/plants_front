@@ -1,5 +1,6 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import { signUp } from "../services/apiService";
 
 export const useUserStore =
     defineStore('users', () => {
@@ -23,6 +24,8 @@ export const useUserStore =
 
         else {
             console.log('signup credentials ok')
+            const response = signUp(username, password)
+
         }
     }
 

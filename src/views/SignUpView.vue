@@ -6,7 +6,7 @@
 
   const userStore = useUserStore()
 
-  const {errorMessage, handleSignup} = storeToRefs(userStore);
+  const {errorMessage, handleSignup} = userStore;
 
   // const userCredentials = ref(null)
   const userCredentials = reactive({

@@ -67,4 +67,24 @@ const password = import.meta.env.VITE_PASSWORD;
       }
   };
 
-  export { fetchData, apiURL };
+  const signUp = async (username, password) => {
+      console.log('sending request to signup in API')
+      const config = {
+          headers: {'Content-Type': 'application/json'}
+      }
+      let data = new FormData();
+      data.append('username', username);
+      data.append('password', password);
+
+      try {
+          const response = await axios.post(apiURL+`users/create-api-user`, data, config).then((response) => {
+              console.log(response);
+          }, (error) => {
+              console.log(error);
+          });
+      } catch (error) {
+          console.error(error);
+      }
+  }
+
+  export { apiURL, fetchData, signUp };
