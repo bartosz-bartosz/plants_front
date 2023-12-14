@@ -3,16 +3,22 @@
   import {useUserStore} from "@/stores/users";
   import {reactive, ref} from "vue";
   import {storeToRefs} from "pinia";
+  import {NSpin} from "naive-ui";
+
+  const loading = ref(false)
 
   const userStore = useUserStore()
+  const {errorMessage, user, handleSignup} = userStore;
 
-  const {errorMessage, handleSignup} = userStore;
-
-  // const userCredentials = ref(null)
   const userCredentials = reactive({
     username: "",
     password: ""
   })
+
+  const signupClicked = (credentials) => {
+    loading.value = !loading.value
+    user.value = handleSignup(credentials)
+  }
 </script>
 
 <template>
@@ -20,8 +26,7 @@
   <div class="main">
     <div class="tile-block">
       <h2>Welcome!</h2>
-      {{userCredentials.username}}
-      {{userCredentials.password}}
+      {{user}}
       <div class="line"></div>
       <div class="signup-wrapper">
         <h4 class="field-name">Username</h4>
@@ -29,9 +34,12 @@
       </div>
       <div class="signup-wrapper">
         <h4 class="field-name">Password</h4>
-        <input type="text" class="standard-input" v-model="userCredentials.password"/>
+        <input type="password" class="standard-input" v-model="userCredentials.password"/>
       </div>
-      <button id="create-account" class="bigger-button" @click="handleSignup(userCredentials)">Create account</button>
+      <button v-if="!loading" id="create-account" class="bigger-button" @click="signupClicked(userCredentials)">Create account</button>
+      <div class="spinner" v-else>
+        <NSpin size="medium"/>
+      </div>
     </div>
   </div>
 </template>
@@ -92,6 +100,10 @@ h4 {
     height: 1px;
     width: 60%;
     background-color: #161f13;
+}
+
+.spinner {
+  margin-top: 52px;
 }
 
 #create-account {

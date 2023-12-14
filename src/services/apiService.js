@@ -77,14 +77,12 @@ const password = import.meta.env.VITE_PASSWORD;
       data.append('password', password);
 
       try {
-          const response = await axios.post(apiURL+`users/create-api-user`, data, config).then((response) => {
+          const response = await axios.post(apiURL+`users/create-api-user`, data, config);
               console.log(response);
-          }, (error) => {
-              console.log(error);
-          });
+              return response;
       } catch (error) {
           console.error(error);
       }
-  }
+  };
 
   export { apiURL, fetchData, signUp };

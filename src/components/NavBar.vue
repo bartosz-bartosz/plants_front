@@ -13,7 +13,6 @@
                     @mouseover="isHovered=true" @mouseleave="isHovered=false">
           Plants</RouterLink>
       </Transition>
-      <p v-if="isHovered">Test</p>
       <div class="links">
       <RouterLink to="/" :class="{'link': true, 'active': $route.path === '/'}">HOME</RouterLink>
       <RouterLink to="/my-plants" :class="{'link': true, 'active': $route.path === '/my-plants'}">PLANTS</RouterLink>

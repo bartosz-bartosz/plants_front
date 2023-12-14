@@ -1,6 +1,6 @@
-import { ref } from 'vue'
-import { defineStore } from 'pinia'
-import { signUp } from "../services/apiService";
+import {ref} from 'vue'
+import {defineStore} from 'pinia'
+import {signUp} from "../services/apiService";
 
 export const useUserStore =
     defineStore('users', () => {
@@ -9,7 +9,7 @@ export const useUserStore =
 
     const handleLogin = () => {}
 
-    const handleSignup = (credentials) => {
+    const handleSignup = async (credentials) => {
         const {username, password} = credentials
 
         if(username.length < 6){
@@ -24,8 +24,7 @@ export const useUserStore =
 
         else {
             console.log('signup credentials ok')
-            const response = signUp(username, password)
-
+            return user.value = await signUp(username, password)
         }
     }
 
