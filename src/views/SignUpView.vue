@@ -4,8 +4,10 @@
   import {reactive, ref} from "vue";
   import {storeToRefs} from "pinia";
   import {NSpin} from "naive-ui";
+  import router from "../router";
 
   const loading = ref(false)
+  const signUpSuccess = ref(false)
 
   const userStore = useUserStore()
   const {errorMessage, user, handleSignup} = userStore;
@@ -15,10 +17,15 @@
     password: ""
   })
 
-  const signupClicked = (credentials) => {
-    loading.value = !loading.value
-    user.value = handleSignup(credentials)
+  const signupClicked = async (credentials) => {
+    loading.value = true;
+    user.value = await handleSignup(credentials);
+    loading.value = false;
+    if (user.value) {
+      signUpSuccess.value = true;
+    }
   }
+
 </script>
 
 <template>
@@ -26,20 +33,28 @@
   <div class="main">
     <div class="tile-block">
       <h2>Welcome!</h2>
-      {{user}}
+      <div v-if="user.value">
+        <p>Username: {{user.value.data}}</p>
+      </div>
+      {{signUpSuccess}}
       <div class="line"></div>
-      <div class="signup-wrapper">
-        <h4 class="field-name">Username</h4>
-        <input type="text" class="standard-input" v-model="userCredentials.username"/>
-      </div>
-      <div class="signup-wrapper">
-        <h4 class="field-name">Password</h4>
-        <input type="password" class="standard-input" v-model="userCredentials.password"/>
-      </div>
-      <button v-if="!loading" id="create-account" class="bigger-button" @click="signupClicked(userCredentials)">Create account</button>
-      <div class="spinner" v-else>
-        <NSpin size="medium"/>
-      </div>
+        <div class="inputs"  v-if="!signUpSuccess">
+          <div class="signup-wrapper">
+            <h4 class="field-name">Username</h4>
+            <input type="text" class="standard-input" v-model="userCredentials.username"/>
+          </div>
+          <div class="signup-wrapper">
+            <h4 class="field-name">Password</h4>
+            <input type="password" class="standard-input" v-model="userCredentials.password"/>
+          </div>
+          <button v-if="!loading && !signUpSuccess" id="create-account" class="bigger-button" @click="signupClicked(userCredentials)">Create account</button>
+          <div class="spinner" v-else>
+            <NSpin size="medium"/>
+          </div>
+        </div>
+        <div v-else>
+          <div class="success-signup">Success!</div>
+        </div>
     </div>
   </div>
 </template>
