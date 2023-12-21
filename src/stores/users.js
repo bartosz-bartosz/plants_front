@@ -12,20 +12,20 @@ export const useUserStore =
     const handleSignup = async (credentials) => {
         const {username, password} = credentials
 
-        if(username.length < 6){
-            console.log('tooshort username')
-            return errorMessage.value = "Username too short."
+        console.log(username, password)
+
+        if(username.length < 4){
+            console.log('username errror')
+            errorMessage.value = "Username must be at least 4 characters."
         }
 
-        if(password.length < 6){
-            console.log('tooshort password')
-            return errorMessage.value = "Password too short."
+        else if(password.length < 6){
+            errorMessage.value = "Password must be at least 6 characters."
         }
 
         else {
             console.log('signup credentials ok')
-            // return user.value = await signUp(username, password)
-            return user.value = await signUp(username, password)
+            user.value = await signUp(username, password)
         }
     }
 

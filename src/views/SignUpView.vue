@@ -2,9 +2,7 @@
   import NavBar from "@/components/NavBar.vue";
   import {useUserStore} from "@/stores/users";
   import {reactive, ref} from "vue";
-  import {storeToRefs} from "pinia";
   import {NSpin} from "naive-ui";
-  import router from "../router";
 
   const loading = ref(false)
   const signUpSuccess = ref(false)
@@ -19,13 +17,15 @@
 
   const signupClicked = async (credentials) => {
     loading.value = true;
-    user.value = await handleSignup(credentials);
+    await handleSignup(credentials);
     loading.value = false;
+    console.log(errorMessage)
     if (user.value) {
       signUpSuccess.value = true;
+      console.log("user value is:")
+      console.log(user.value)
     }
   }
-
 </script>
 
 <template>
@@ -37,6 +37,7 @@
         <p>Username: {{user.value.data}}</p>
       </div>
       {{signUpSuccess}}
+      {{loading}}
       <div class="line"></div>
         <div class="inputs"  v-if="!signUpSuccess">
           <div class="signup-wrapper">
@@ -46,6 +47,9 @@
           <div class="signup-wrapper">
             <h4 class="field-name">Password</h4>
             <input type="password" class="standard-input" v-model="userCredentials.password"/>
+          </div>
+          <div v-if="!signUpSuccess && errorMessage.value!==''">
+            <p class="error-message"> {{ errorMessage }} </p>
           </div>
           <button v-if="!loading && !signUpSuccess" id="create-account" class="bigger-button" @click="signupClicked(userCredentials)">Create account</button>
           <div class="spinner" v-else>

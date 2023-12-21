@@ -82,3 +82,7 @@ input:focus {
     font-style: italic;
     font-weight: 200;
 }
+
+.error-message {
+    color: red
+}
