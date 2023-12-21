@@ -3,12 +3,13 @@
   import {useUserStore} from "@/stores/users";
   import {reactive, ref, watch} from "vue";
   import {NSpin} from "naive-ui";
+  import {storeToRefs} from "pinia";
 
   const loading = ref(false)
   const signUpSuccess = ref(false)
 
   const userStore = useUserStore()
-  const {errorMessage, user, handleSignup} = userStore;
+  const {errorMessage, user, handleSignup} = storeToRefs(userStore);
 
   const userCredentials = reactive({
     username: "",
