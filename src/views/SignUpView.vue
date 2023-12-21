@@ -1,7 +1,7 @@
 <script setup>
   import NavBar from "@/components/NavBar.vue";
   import {useUserStore} from "@/stores/users";
-  import {reactive, ref} from "vue";
+  import {reactive, ref, watch} from "vue";
   import {NSpin} from "naive-ui";
 
   const loading = ref(false)
@@ -17,15 +17,20 @@
 
   const signupClicked = async (credentials) => {
     loading.value = true;
-    await handleSignup(credentials);
+    handleSignup(credentials);
     loading.value = false;
-    console.log(errorMessage)
+    console.log(userStore.errorMessage.value)
     if (user.value) {
       signUpSuccess.value = true;
       console.log("user value is:")
       console.log(user.value)
     }
   }
+
+  watch(() => errorMessage.value, () => {
+    console.log(userStore.errorMessage.value)
+  })
+
 </script>
 
 <template>

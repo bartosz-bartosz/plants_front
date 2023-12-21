@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { defineStore } from 'pinia'
 import { signUp } from "../services/apiService";
 
@@ -9,7 +9,7 @@ export const useUserStore =
 
     const handleLogin = () => {}
 
-    const handleSignup = async (credentials) => {
+    const handleSignup = (credentials) => {
         const {username, password} = credentials
 
         console.log(username, password)
@@ -25,14 +25,20 @@ export const useUserStore =
 
         else {
             console.log('signup credentials ok')
-            user.value = await signUp(username, password)
+            signUp(username, password).then(() =>
+            {user.value})
         }
+
+        return 1
     }
+
+    watch(() => errorMessage.value, () => {
+        console.log(errorMessage.value)
+    })
 
     const handleLogout = () => {}
 
     const getUser = () => {}
-
 
     return { user, errorMessage, handleLogin, handleSignup, handleLogout, getUser }
 })
