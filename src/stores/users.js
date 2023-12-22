@@ -9,7 +9,8 @@ export const useUserStore =
 
     const handleLogin = () => {}
 
-    const handleSignup = (credentials) => {
+    const handleSignup = async (credentials) => {
+        errorMessage.value = ""
         const {username, password} = credentials
 
         console.log(username, password)
@@ -25,16 +26,19 @@ export const useUserStore =
 
         else {
             console.log('signup credentials ok')
-            signUp(username, password).then(() =>
-            {user.value})
+            const response = await signUp(username, password)
+            if (response.error) {
+                console.log('response error')
+                errorMessage.value = response.error
+            }
+            else {
+                console.log('no error, user returned')
+                user.value = response.response
+            }
+
+            console.log(user.value)
         }
-
-        return 1
     }
-
-    watch(() => errorMessage.value, () => {
-        console.log(errorMessage.value)
-    })
 
     const handleLogout = () => {}
 

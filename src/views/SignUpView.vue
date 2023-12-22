@@ -9,7 +9,7 @@
   const signUpSuccess = ref(false)
 
   const userStore = useUserStore()
-  const {errorMessage, user, handleSignup} = storeToRefs(userStore);
+  const {errorMessage, user} = storeToRefs(userStore);
 
   const userCredentials = reactive({
     username: "",
@@ -18,19 +18,15 @@
 
   const signupClicked = async (credentials) => {
     loading.value = true;
-    handleSignup(credentials);
+    await userStore.handleSignup(credentials);
     loading.value = false;
-    console.log(userStore.errorMessage.value)
-    if (user.value) {
+    console.log(errorMessage.value)
+    if ('data' in user.value) {
       signUpSuccess.value = true;
       console.log("user value is:")
-      console.log(user.value)
+      console.log(user.value.data)
     }
   }
-
-  watch(() => errorMessage.value, () => {
-    console.log(userStore.errorMessage.value)
-  })
 
 </script>
 
@@ -39,8 +35,8 @@
   <div class="main">
     <div class="tile-block">
       <h2>Welcome!</h2>
-      <div v-if="user.value">
-        <p>Username: {{user.value.data}}</p>
+      <div v-if="user.data">
+        <p>Username: {{user.data}}</p>
       </div>
       {{signUpSuccess}}
       {{loading}}
