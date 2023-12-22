@@ -34,4 +34,8 @@ function timeAgo(date) {
   }
 }
 
-export { formatDateTime , timeAgo };
+function sleepFor(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export { formatDateTime , timeAgo, sleepFor };

@@ -1,34 +1,36 @@
 <script setup>
-  import NavBar from "@/components/NavBar.vue";
-  import {useUserStore} from "@/stores/users";
-  import {reactive, ref, watch} from "vue";
-  import {NSpin} from "naive-ui";
-  import {storeToRefs} from "pinia";
+import NavBar from "@/components/NavBar.vue";
+import {useUserStore} from "@/stores/users";
+import {reactive, ref, watch} from "vue";
+import {NSpin} from "naive-ui";
+import {storeToRefs} from "pinia";
 import router from "@/router/index";
+import {sleepFor} from "@/services/dataParsing";
 
-  const loading = ref(false)
-  const signUpSuccess = ref(false)
+const loading = ref(false)
+const signUpSuccess = ref(false)
 
-  const userStore = useUserStore()
-  const {errorMessage, user} = storeToRefs(userStore);
+const userStore = useUserStore()
+const {errorMessage, user} = storeToRefs(userStore);
 
-  const userCredentials = reactive({
-    username: "",
-    password: ""
-  })
+const userCredentials = reactive({
+  username: "",
+  password: ""
+})
 
-  const signupClicked = async (credentials) => {
-    loading.value = true;
-    await userStore.handleSignup(credentials);
-    loading.value = false;
-    console.log(errorMessage.value)
-    if ('data' in user.value) {
-      signUpSuccess.value = true;
-      console.log("user value is:")
-      console.log(user.value.data)
-      router.push({name: 'home'})
-    }
+const signupClicked = async (credentials) => {
+  loading.value = true;
+  await userStore.handleSignup(credentials);
+  loading.value = false;
+  console.log(errorMessage.value)
+  if ('data' in user.value) {
+    signUpSuccess.value = true;
+    console.log("user value is:")
+    console.log(user.value.data)
+    sleepFor(2000).then(() => {
+      router.push({name: 'home'}); });
   }
+}
 
 </script>
 
@@ -36,14 +38,14 @@ import router from "@/router/index";
   <NavBar/>
   <div class="main">
     <div class="tile-block">
-      <h2>Welcome!</h2>
-      <div v-if="user.data">
-        <p>Username: {{user.data}}</p>
+
+      <div class="tile-header">
+        <h2>Welcome!</h2>
+        <div class="line"></div>
       </div>
-      {{signUpSuccess}}
-      {{loading}}
-      <div class="line"></div>
-        <div class="inputs"  v-if="!signUpSuccess">
+
+      <div class="tile-body">
+        <div class="inputs" v-if="!signUpSuccess">
           <div class="signup-wrapper">
             <h4 class="field-name">Username</h4>
             <input type="text" class="standard-input" v-model="userCredentials.username"/>
@@ -60,9 +62,20 @@ import router from "@/router/index";
             <NSpin size="medium"/>
           </div>
         </div>
-        <div v-else>
-          <div class="success-signup">Success!</div>
+        <div v-else class="success-signup">
+          <font-awesome-icon icon="fa-circle-check" class="success-icon"/>
+          <p class="success-text">Success!</p>
         </div>
+      </div>
+
+      <div class="tile-footer">
+        <p v-if="signUpSuccess && !loading">You will be redirected soon...</p>
+<!--        <div v-if="user.data">-->
+<!--          <p>Username: {{ user.data }}</p>-->
+<!--        </div>-->
+<!--        {{ signUpSuccess }}-->
+<!--        {{ loading }}-->
+      </div>
     </div>
   </div>
 </template>
@@ -70,26 +83,45 @@ import router from "@/router/index";
 <style scoped>
 
 .main {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .tile-block {
-    min-width: 320px;
-    max-width: 40%;
-    min-height: 400px;
-    border-radius: 10px;
-    background-color: #ffffff;
-    //border: #3C6255 solid 1px;
-    box-shadow: 4px 8px 20px rgba(22, 31, 19, 0.39);
-    padding: 24px;
+  min-width: 320px;
+  max-width: 40%;
+  min-height: 400px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  border: #3C6255 solid 1px;
+  box-shadow: 4px 8px 20px rgba(22, 31, 19, 0.39);
+  padding: 24px;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tile-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tile-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .signup-wrapper {
@@ -114,18 +146,26 @@ h4 {
 }
 
 .line {
-    margin-top: 10px;
+  margin-top: 10px;
   margin-bottom: 16px;
-    height: 1px;
-    width: 60%;
-    background-color: #161f13;
+  height: 1px;
+  width: 60%;
+  background-color: #161f13;
 }
 
 .spinner {
   margin-top: 52px;
 }
 
+.success-signup {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
 #create-account {
   margin-top: 48px;
 }
+
+
 </style>

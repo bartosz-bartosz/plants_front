@@ -1,3 +1,4 @@
+@import '../styles.css';
 
 @font-face {
     font-family: "Montserrat", sans-serif;
@@ -86,4 +87,15 @@ input:focus {
 
 .error-message {
     color: red
+}
+
+p.success-text {
+    font-weight: bold;
+    font-size: 16px;
+    color: var(--success-green)
+}
+.success-icon {
+    font-size: 36px;
+    color: var(--success-green);
+    /*color: green;*/
 }
