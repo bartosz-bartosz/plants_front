@@ -35,8 +35,6 @@ export const useUserStore =
                 console.log('no error, user returned')
                 user.value = response.response
             }
-
-            console.log(user.value)
         }
     }
 

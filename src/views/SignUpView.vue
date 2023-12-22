@@ -4,6 +4,7 @@
   import {reactive, ref, watch} from "vue";
   import {NSpin} from "naive-ui";
   import {storeToRefs} from "pinia";
+import router from "@/router/index";
 
   const loading = ref(false)
   const signUpSuccess = ref(false)
@@ -25,6 +26,7 @@
       signUpSuccess.value = true;
       console.log("user value is:")
       console.log(user.value.data)
+      router.push({name: 'home'})
     }
   }
 
@@ -95,10 +97,6 @@
   width: 90%;
   display: flex;
   flex-direction: column;
-}
-
-input {
-
 }
 
 .field-name {
