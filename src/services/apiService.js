@@ -2,8 +2,8 @@ import axios from 'axios';
 import jwt_decode from "jwt-decode";
 
 const apiURL = import.meta.env.VITE_BASEURL;
-const username = import.meta.env.VITE_USERNAME;
-const password = import.meta.env.VITE_PASSWORD;
+// const username = import.meta.env.VITE_USERNAME;
+// const password = import.meta.env.VITE_PASSWORD;
 
 
 const customRequest = axios.create({
@@ -29,7 +29,7 @@ const isTokenExpired = (token) => {
     }
 };
 
-const getToken = async () => {
+const getToken = async (username, password) => {
     console.log('getToken function called.');
     const data = new URLSearchParams();
     data.append('grant_type', '');
@@ -48,12 +48,12 @@ const getToken = async () => {
     }
 };
 
-const fetchData = async (endpoint) => {
+const fetchData = async (endpoint, username, password) => {
     try {
         let token = localStorage.getItem('accessToken');
 
         if (!token || isTokenExpired(token)) {
-            token = await getToken();
+            token = await getToken(username, password);
         }
         const config = {
             headers: {Authorization: `Bearer ${token}`}

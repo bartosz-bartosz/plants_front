@@ -17,21 +17,18 @@ const userCredentials = reactive({
   password: ""
 })
 
-onMounted(() => {
-  userStore.clearUserStore()
-})
 
 const loginClicked = async (credentials) => {
   loading.value = true;
   await userStore.handleLogin(credentials);
   loading.value = false;
   console.log(errorMessage.value)
-  if ('data' in user.value) {
+  if (user?.value) {
     signUpSuccess.value = true;
     console.log("user value is:")
     console.log(user.value.data)
     sleepFor(3000).then(() => {
-      router.push({name: 'home'});
+      router.push({name: 'my-plants'});
     });
   }
 }
@@ -77,7 +74,7 @@ const loginClicked = async (credentials) => {
           <p v-if="signUpSuccess && !loading">You will be redirected soon...</p>
         </Transition>
 
-        <div v-if="user.data">
+        <div v-if="user?.data">
           <p>Username: {{ user.data }}</p>
         </div>
         <!--        {{ signUpSuccess }}-->

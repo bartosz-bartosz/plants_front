@@ -10,9 +10,12 @@ import {ref, onMounted} from "vue";
 
 const route = useRoute()
 const showSignup = ref(true)
-const showLogin = ref(false)
+const showLogin = ref(true)
 
 const userStore = useUserStore();
+
+const token = localStorage.getItem('accessToken');
+
 
 // let user_data = ref(null)
 // onMounted(async () =>{
@@ -35,6 +38,9 @@ const userStore = useUserStore();
       <div v-if="showLogin" class="log-in">
         <LogIn/>
       </div>
+      {{ userStore.user }}
+      <p>divider</p>
+      {{ token }}
     </div>
   </div>
 </template>

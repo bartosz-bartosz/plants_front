@@ -8,6 +8,7 @@ import {sleepFor} from "@/services/dataParsing";
 
 const loading = ref(false)
 const signUpSuccess = ref(false)
+const signupResponse = ref(null)
 
 const userStore = useUserStore()
 const {errorMessage, user} = storeToRefs(userStore);
@@ -25,13 +26,14 @@ const signupClicked = async (credentials) => {
   userStore.clearUserStore()
 
   loading.value = true;
-  await userStore.handleSignup(credentials);
+  signupResponse.value = await userStore.handleSignup(credentials);
   loading.value = false;
   console.log(errorMessage.value)
-  if ('data' in user.value) {
+  if (signupResponse.value) {
     signUpSuccess.value = true;
     console.log("user value is:")
-    console.log(user.value.data)
+    console.log(signupResponse.value.data)
+    await userStore.handleLogin(credentials)
     sleepFor(3000).then(() => {
       router.push({name: 'home'});
     });
@@ -80,7 +82,7 @@ const signupClicked = async (credentials) => {
         </Transition>
 
         <div v-if="user?.data">
-          <p>Username: {{ user.data }}</p>
+          <p>Username: {{ signupResponse }}</p>
         </div>
         <!--        {{ signUpSuccess }}-->
         <!--        {{ loading }}-->
