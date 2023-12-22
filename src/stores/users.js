@@ -5,12 +5,17 @@ import { signUp } from "../services/apiService";
 export const useUserStore =
     defineStore('users', () => {
     const user = ref({});
-    const errorMessage = ref("")
+    const errorMessage = ref("");
+
+    const clearUserStore = () => {
+        errorMessage.value = ""
+        user.value = {}
+    }
 
     const handleLogin = () => {}
 
     const handleSignup = async (credentials) => {
-        errorMessage.value = ""
+        clearUserStore()
         const {username, password} = credentials
 
         console.log(username, password)
@@ -42,5 +47,5 @@ export const useUserStore =
 
     const getUser = () => {}
 
-    return { user, errorMessage, handleLogin, handleSignup, handleLogout, getUser }
+    return { user, errorMessage, clearUserStore, handleLogin, handleSignup, handleLogout, getUser }
 })

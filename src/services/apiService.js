@@ -68,11 +68,11 @@ const fetchData = async (endpoint) => {
 };
 
 const signUp = async (username, password) => {
-    console.log('sending request to signup in API')
+    console.log('sending request to signup in API');
     const config = {
         headers: {'Content-Type': 'application/json'}
-    }
-    let data = new FormData();
+    };
+    const data = new FormData();
     data.append('username', username);
     data.append('password', password);
 
@@ -85,14 +85,18 @@ const signUp = async (username, password) => {
         };
     } catch (error) {
         if (error.response) {
-            console.log(error.response.data)
-            console.log(error.response.status)
+            console.log(error.response.data);
+            console.log(error.response.status);
             if ('detail' in error.response.data) {
                 return {
                     error: error.response.data.detail,
                     response: null
-                }
+                };
             }
+            return {
+                    error: error.response.data,
+                    response: null
+                };
         }
     }
 };

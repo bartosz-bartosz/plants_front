@@ -1,7 +1,7 @@
 <script setup>
 import NavBar from "@/components/NavBar.vue";
 import {useUserStore} from "@/stores/users";
-import {reactive, ref, watch} from "vue";
+import {onMounted, reactive, ref, watch} from "vue";
 import {NSpin} from "naive-ui";
 import {storeToRefs} from "pinia";
 import router from "@/router/index";
@@ -18,6 +18,10 @@ const userCredentials = reactive({
   password: ""
 })
 
+onMounted(() => {
+  userStore.clearUserStore()
+})
+
 const signupClicked = async (credentials) => {
   loading.value = true;
   await userStore.handleSignup(credentials);
@@ -27,8 +31,9 @@ const signupClicked = async (credentials) => {
     signUpSuccess.value = true;
     console.log("user value is:")
     console.log(user.value.data)
-    sleepFor(2000).then(() => {
-      router.push({name: 'home'}); });
+    sleepFor(3000).then(() => {
+      router.push({name: 'home'});
+    });
   }
 }
 
@@ -62,19 +67,24 @@ const signupClicked = async (credentials) => {
             <NSpin size="medium"/>
           </div>
         </div>
-        <div v-else class="success-signup">
-          <font-awesome-icon icon="fa-circle-check" class="success-icon"/>
-          <p class="success-text">Success!</p>
-        </div>
-      </div>
+        <Transition name="success-scale">
+          <div v-if="signUpSuccess && !loading" class="success-signup">
+            <font-awesome-icon icon="fa-circle-check" class="success-icon"/>
+            <p class="success-text">Success!</p>
+          </div>
+        </Transition>
 
+      </div>
       <div class="tile-footer">
-        <p v-if="signUpSuccess && !loading">You will be redirected soon...</p>
-<!--        <div v-if="user.data">-->
-<!--          <p>Username: {{ user.data }}</p>-->
-<!--        </div>-->
-<!--        {{ signUpSuccess }}-->
-<!--        {{ loading }}-->
+        <Transition>
+          <p v-if="signUpSuccess && !loading">You will be redirected soon...</p>
+        </Transition>
+
+        <!--        <div v-if="user.data">-->
+        <!--          <p>Username: {{ user.data }}</p>-->
+        <!--        </div>-->
+        <!--        {{ signUpSuccess }}-->
+        <!--        {{ loading }}-->
       </div>
     </div>
   </div>
@@ -92,7 +102,6 @@ const signupClicked = async (credentials) => {
 
 .tile-block {
   min-width: 320px;
-  max-width: 40%;
   min-height: 400px;
   border-radius: 10px;
   background-color: #ffffff;
@@ -110,28 +119,37 @@ const signupClicked = async (credentials) => {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  width: 320px;
 }
 
 .tile-body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 320px;
+
 }
 
 .tile-footer {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 320px;
+
 }
 
 .signup-wrapper {
   margin-top: 12px;
-  width: 90%;
+  width: 320px;
   display: flex;
   flex-direction: column;
 }
 
 .field-name {
+  width: 320px;
+  display: flex;
+  flex-direction: row;
   align-self: flex-start;
   margin-bottom: 12px;
 }
@@ -168,4 +186,19 @@ h4 {
 }
 
 
+// Animation of success sign:
+.succes-scale-enter-active,
+.succes-scale-leave-active {
+  transition: transform 0.5s ease;
+}
+
+.succes-scale-enter-from,
+.succes-scale-leave-to {
+  transform: scale(0);
+}
+
+.succes-scale-enter-to,
+.succes-scale-leave-from {
+  transform: scale(1)
+}
 </style>
