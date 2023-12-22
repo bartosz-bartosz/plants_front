@@ -3,6 +3,12 @@
   import {RouterLink} from "vue-router";
   import { ref } from "vue";
 
+  import {useUserStore} from "@/stores/users";
+  import {storeToRefs} from "pinia";
+
+  const userStore = useUserStore();
+  const {user} = storeToRefs(userStore);
+
   const isHovered = ref(false)
 </script>
 
@@ -17,7 +23,8 @@
       <RouterLink to="/" :class="{'link': true, 'active': $route.path === '/'}">HOME</RouterLink>
       <RouterLink to="/my-plants" :class="{'link': true, 'active': $route.path === '/my-plants'}">PLANTS</RouterLink>
       <RouterLink to="/watering" :class="{'link': true, 'active': $route.path === '/watering'}">WATERING</RouterLink>
-      <RouterLink to="/signup" :class="{'link': true, 'active': $route.path === '/signup'}">SIGN UP</RouterLink>
+      <RouterLink v-if="!user?.data" to="/signup" :class="{'link': true, 'active': $route.path === '/signup'}">SIGN UP</RouterLink>
+      <RouterLink v-if="user?.data" to="/profile" :class="{'link': true, 'active': $route.path === '/signup'}">PROFILE</RouterLink>
       </div>
     </div>
 </template>
