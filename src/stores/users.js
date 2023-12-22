@@ -4,7 +4,7 @@ import { signUp } from "../services/apiService";
 
 export const useUserStore =
     defineStore('users', () => {
-    const user = ref({});
+    const user = ref(null);
     const errorMessage = ref("");
 
     const clearUserStore = () => {

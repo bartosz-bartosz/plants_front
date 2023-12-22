@@ -67,7 +67,7 @@ const signupClicked = async (credentials) => {
             <NSpin size="medium"/>
           </div>
         </div>
-        <Transition name="success-scale">
+        <Transition>
           <div v-if="signUpSuccess && !loading" class="success-signup">
             <font-awesome-icon icon="fa-circle-check" class="success-icon"/>
             <p class="success-text">Success!</p>
@@ -185,20 +185,18 @@ h4 {
   margin-top: 48px;
 }
 
-
-// Animation of success sign:
-.succes-scale-enter-active,
-.succes-scale-leave-active {
+.v-enter-active,
+.v-leave-active {
   transition: transform 0.5s ease;
 }
 
-.succes-scale-enter-from,
-.succes-scale-leave-to {
+.v-enter-from,
+.v-leave-to {
   transform: scale(0);
 }
 
-.succes-scale-enter-to,
-.succes-scale-leave-from {
+.v-enter-to,
+.v-leave-from {
   transform: scale(1)
 }
 </style>
