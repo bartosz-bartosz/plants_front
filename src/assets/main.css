@@ -14,6 +14,17 @@ p {
     font-family: Montserrat, sans-serif;
 }
 
+p.small-clickable-text {
+    font-size: 14px;
+    color: var(--light-green);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+p.small-clickable-text:hover {
+    color: var(--dark-green);
+}
+
 h2, h3, h4 {
     text-align: center;
     color: #161f13;
@@ -33,7 +44,7 @@ button {
     min-width: 50px;
     min-height: 36px;
     padding: 8px 12px;
-    background: #9dc08b;
+    background: var(--light-green);
     font-family: "Montserrat", sans-serif;
     font-weight: bold;
     border-radius: 10px;
@@ -43,7 +54,7 @@ button {
 
 button:hover {
     background: #40513B;
-    color: #9dc08b;
+    color: var(--light-green);
     cursor: pointer;
     /*border: solid 1px #A7D7C5;*/
     /*box-shadow: 0 0 36px rgba(44, 80, 72, 0.39);*/
@@ -74,9 +85,20 @@ input::selection {
 }
 
 input:focus {
-    outline: 1px solid #9dc08b;
-    caret-color: #9dc08b;
+    outline: 1px solid var(--light-green);
+    caret-color: var(--light-green);
     box-shadow: 0 0 6px 2px rgba(157, 192, 139, 0.42) inset;
+}
+
+.main {
+  margin-top: 24px;
+  width: 100%;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .species-italic {
@@ -94,6 +116,7 @@ p.success-text {
     font-size: 16px;
     color: var(--success-green)
 }
+
 .success-icon {
     font-size: 36px;
     color: var(--success-green);

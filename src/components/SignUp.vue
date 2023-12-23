@@ -23,8 +23,6 @@ const userCredentials = reactive({
 // })
 
 const signupClicked = async (credentials) => {
-  userStore.clearUserStore()
-
   loading.value = true;
   signupResponse.value = await userStore.handleSignup(credentials);
   loading.value = false;
@@ -46,7 +44,7 @@ const signupClicked = async (credentials) => {
 <div class="tile-block">
 
       <div class="tile-header">
-        <h2>Welcome!</h2>
+        <h2>Create account</h2>
         <div class="line"></div>
       </div>
 
@@ -64,7 +62,7 @@ const signupClicked = async (credentials) => {
             <p class="error-message"> {{ errorMessage }} </p>
           </div>
           <button v-if="!loading && !signUpSuccess" id="create-account" class="bigger-button" @click="signupClicked(userCredentials)">Create account</button>
-          <div class="spinner" v-else>
+          <div v-else class="spinner">
             <NSpin size="medium"/>
           </div>
         </div>
@@ -81,8 +79,8 @@ const signupClicked = async (credentials) => {
           <p v-if="signUpSuccess && !loading">You will be redirected soon...</p>
         </Transition>
 
-        <div v-if="user?.data">
-          <p>Username: {{ signupResponse }}</p>
+        <div v-if="user?.username">
+          <p>Username: {{ user.username }}</p>
         </div>
         <!--        {{ signUpSuccess }}-->
         <!--        {{ loading }}-->

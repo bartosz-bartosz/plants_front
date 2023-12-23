@@ -5,23 +5,28 @@ import LogIn from "@/components/LogIn.vue";
 
 import {useUserStore} from "@/stores/users";
 import {useRoute} from "vue-router";
-import {fetchData, apiURL} from '@/services/apiService';
 import {ref, onMounted} from "vue";
+import router from "../router";
 
 const route = useRoute()
 const showSignup = ref(true)
 const showLogin = ref(true)
 
 const userStore = useUserStore();
-
 const token = localStorage.getItem('accessToken');
 
-
+onMounted(() => {
+  if (!userStore.user) {
+    router.push({name: 'signup'});
+  }
+})
 // let user_data = ref(null)
 // onMounted(async () =>{
 //   const user_res = await fetchData(apiURL+`users/me`);
 //   user_data.value = user_res.data.username
 // });
+
+
 
 
 </script>
@@ -31,16 +36,7 @@ const token = localStorage.getItem('accessToken');
     <NavBar/>
     <div class="main">
       <h1>HOME</h1>
-      <h2 v-if="!showSignup && !showLogin" class="user-welcome">Welcome, {{  }}!</h2>
-      <div v-if="showSignup" class="sign-up">
-        <SignUp/>
-      </div>
-      <div v-if="showLogin" class="log-in">
-        <LogIn/>
-      </div>
-      {{ userStore.user }}
-      <p>divider</p>
-      {{ token }}
+      <h2 v-if="!showSignup && !showLogin" class="user-welcome">Welcome, {{ userStore.user.username }}!</h2>
     </div>
   </div>
 </template>

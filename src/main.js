@@ -5,9 +5,9 @@ import { faCircleCheck, faAngleLeft,
     faAngleRight, faDroplet, faStopwatch,
     faCalendarDay, faDna, faAddressCard} from '@fortawesome/free-solid-svg-icons'
 
-import { createApp } from 'vue';
+import { createApp, watch } from 'vue';
 import App from './App.vue';
-import router from "@/router/index";
+import router from "./router/index";
 import 'dotenv'
 
 import {createPinia} from "pinia";

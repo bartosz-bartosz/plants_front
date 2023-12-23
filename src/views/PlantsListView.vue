@@ -1,8 +1,8 @@
 <script setup>
 import {onMounted, ref, provide, watch} from "vue";
-  import NavBar from "@/components/NavBar.vue";
-  import PlantCard from "@/components/PlantCards.vue";
-  import PlantsTable from "@/components/PlantsTable.vue";
+  import NavBar from "../components/NavBar.vue";
+  import PlantCard from "../components/PlantCards.vue";
+  import PlantsTable from "../components/PlantsTable.vue";
   import {apiURL, fetchData} from "../services/apiService";
 
   let listview = ref(true);

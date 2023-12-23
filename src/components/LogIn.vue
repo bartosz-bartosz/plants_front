@@ -7,7 +7,7 @@ import router from "@/router/index";
 import {sleepFor} from "@/services/dataParsing";
 
 const loading = ref(false)
-const signUpSuccess = ref(false)
+const loginSuccess = ref(false)
 
 const userStore = useUserStore()
 const {errorMessage, user} = storeToRefs(userStore);
@@ -24,7 +24,7 @@ const loginClicked = async (credentials) => {
   loading.value = false;
   console.log(errorMessage.value)
   if (user?.value) {
-    signUpSuccess.value = true;
+    loginSuccess.value = true;
     console.log("user value is:")
     console.log(user.value.data)
     sleepFor(3000).then(() => {
@@ -39,12 +39,12 @@ const loginClicked = async (credentials) => {
 <div class="tile-block">
 
       <div class="tile-header">
-        <h2>Welcome!</h2>
+        <h2>Log in</h2>
         <div class="line"></div>
       </div>
 
       <div class="tile-body">
-        <div class="inputs" v-if="!signUpSuccess">
+        <div class="inputs" v-if="!loginSuccess">
           <div class="signup-wrapper">
             <h4 class="field-name">Username</h4>
             <input type="text" class="standard-input" v-model="userCredentials.username"/>
@@ -53,16 +53,16 @@ const loginClicked = async (credentials) => {
             <h4 class="field-name">Password</h4>
             <input type="password" class="standard-input" v-model="userCredentials.password"/>
           </div>
-          <div v-if="!signUpSuccess && errorMessage.value!==''">
+          <div v-if="!loginSuccess && errorMessage.value!==''">
             <p class="error-message"> {{ errorMessage }} </p>
           </div>
-          <button v-if="!loading && !signUpSuccess" id="log-in" class="bigger-button" @click="loginClicked(userCredentials)">Log in</button>
+          <button v-if="!loading && !loginSuccess" id="log-in" class="bigger-button" @click="loginClicked(userCredentials)">Log in</button>
           <div class="spinner" v-else>
             <NSpin size="medium"/>
           </div>
         </div>
         <Transition>
-          <div v-if="signUpSuccess && !loading" class="success-signup">
+          <div v-if="loginSuccess && !loading" class="success-signup">
             <font-awesome-icon icon="fa-circle-check" class="success-icon"/>
             <p class="success-text">Success!</p>
           </div>
@@ -71,11 +71,11 @@ const loginClicked = async (credentials) => {
       </div>
       <div class="tile-footer">
         <Transition>
-          <p v-if="signUpSuccess && !loading">You will be redirected soon...</p>
+          <p v-if="loginSuccess && !loading">You will be redirected soon...</p>
         </Transition>
 
-        <div v-if="user?.data">
-          <p>Username: {{ user.data }}</p>
+        <div v-if="user?.username">
+          <p>Username: {{ user.username }}</p>
         </div>
         <!--        {{ signUpSuccess }}-->
         <!--        {{ loading }}-->

@@ -22,9 +22,12 @@
       <div class="links">
       <RouterLink to="/" :class="{'link': true, 'active': $route.path === '/'}">HOME</RouterLink>
       <RouterLink to="/my-plants" :class="{'link': true, 'active': $route.path === '/my-plants'}">PLANTS</RouterLink>
-      <RouterLink to="/watering" :class="{'link': true, 'active': $route.path === '/watering'}">WATERING</RouterLink>
-      <RouterLink v-if="!user?.data" to="/signup" :class="{'link': true, 'active': $route.path === '/signup'}">SIGN UP</RouterLink>
-      <RouterLink v-if="user?.data" to="/profile" :class="{'link': true, 'active': $route.path === '/signup'}">PROFILE</RouterLink>
+<!--      <RouterLink to="/watering" :class="{'link': true, 'active': $route.path === '/watering'}">WATERING</RouterLink>-->
+      <RouterLink v-if="!user" to="/signup" :class="{'link': true, 'active': $route.path === '/signup'}">SIGN UP</RouterLink>
+      <RouterLink v-if="user"
+                  to="/profile"
+                  id="profile-tab"
+                  :class="{'link': true, 'active': $route.path === '/signup'}">PROFILE</RouterLink>
       </div>
     </div>
 </template>
@@ -69,7 +72,7 @@
       font-weight: bold;
       text-decoration: none;
       color: #40513B;
-      padding-bottom: 10px;
+      padding-bottom: 1px;
       border-bottom: #EDF1D6 8px solid;
       cursor: pointer;
   }
