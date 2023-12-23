@@ -3,19 +3,41 @@ import NavBar from "@/components/NavBar.vue";
 import SignUp from "@/components/SignUp.vue";
 import {ref} from "vue";
 import LogIn from "../components/LogIn.vue";
+import {sleepFor} from "../services/dataParsing";
 
-const signupOrLogin = ref(true)
+const showSignup = ref(true)
+const showLogin = ref(false)
+
+const switchTiles = async () => {
+  if (showSignup.value) {
+    showSignup.value = !showSignup.value
+    await sleepFor(500);
+    showLogin.value = !showLogin.value
+  }
+  else {
+    showLogin.value = !showLogin.value
+    await sleepFor(500);
+    showSignup.value = !showSignup.value
+  }
+}
 
 </script>
 
 <template>
   <NavBar/>
   <div class="main">
-    <SignUp v-if="signupOrLogin"/>
-    <LogIn v-if="!signupOrLogin"/>
-    <p v-if="signupOrLogin" class="small-clickable-text" id="login-signup-switch" @click="signupOrLogin = !signupOrLogin">I have an account already</p>
-    <p v-if="!signupOrLogin" class="small-clickable-text" id="login-signup-switch" @click="signupOrLogin = !signupOrLogin">I don't have an account</p>
+    <div class="tiles">
+      <Transition>
+        <SignUp v-if="showSignup"/>
+      </Transition>
+      <Transition>
+        <LogIn v-if="showLogin"/>
+      </Transition>
+    </div>
+    <p v-if="showSignup" class="small-clickable-text" id="login-signup-switch" @click="switchTiles">I have an account already</p>
+    <p v-if="showLogin" class="small-clickable-text" id="login-signup-switch" @click="switchTiles">I don't have an account</p>
   </div>
+
 </template>
 
 <style scoped>
@@ -23,6 +45,12 @@ const signupOrLogin = ref(true)
 .main {
   width: 100%;
   display: flex;
+  flex-direction: column;
+}
+.tiles {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -31,4 +59,21 @@ const signupOrLogin = ref(true)
 #login-signup-switch {
   margin-top: 36px;
 }
+
+
+.v-enter-active,
+.v-leave-active {
+  transition: transform 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  transform: scale(0);
+}
+
+.v-enter-to,
+.v-leave-from {
+  transform: scale(1)
+}
+
 </style>
