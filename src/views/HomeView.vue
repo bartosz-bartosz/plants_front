@@ -20,12 +20,6 @@ onMounted(() => {
     router.push({name: 'signup'});
   }
 })
-// let user_data = ref(null)
-// onMounted(async () =>{
-//   const user_res = await fetchData(apiURL+`users/me`);
-//   user_data.value = user_res.data.username
-// });
-
 
 
 

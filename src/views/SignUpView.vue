@@ -63,7 +63,7 @@ const switchTiles = async () => {
 
 .v-enter-active,
 .v-leave-active {
-  transition: transform 0.5s ease;
+  transition: transform 0.2s ease;
 }
 
 .v-enter-from,

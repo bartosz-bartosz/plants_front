@@ -21,7 +21,6 @@ const userCredentials = reactive({
 // onMounted(() => {
 //   userStore.clearUserStore()
 // })
-localStorage.clear()
 const signupClicked = async (credentials) => {
   loading.value = true;
   signupResponse.value = await userStore.handleSignup(credentials);

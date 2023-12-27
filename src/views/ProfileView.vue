@@ -6,11 +6,11 @@ import router from "../router/index";
 
 const userStore = useUserStore();
 
-onMounted(() => {
-  if (!userStore.user) {
-    router.push({name: 'signup'});
-  }
-})
+// onMounted(() => {
+//   if (!userStore.user) {
+//     router.push({name: 'signup'});
+//   }
+// })
 
 </script>
 
