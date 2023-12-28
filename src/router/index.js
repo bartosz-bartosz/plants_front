@@ -4,6 +4,7 @@ import PlantsListView from "@/views/PlantsListView.vue";
 import WateringView from "@/views/WateringView.vue";
 import SignUpView from "@/views/LoginView.vue";
 import ProfileView from "@/views/ProfileView.vue";
+import AddPlantView from "../views/AddPlantView.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
             path: "/profile",
             name: "profile",
             component: ProfileView
+        },
+        {
+            path: "/new-plant",
+            name: "new-plant",
+            component: AddPlantView
         }
     ]
 })

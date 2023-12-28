@@ -53,37 +53,6 @@
 
 <style scoped>
 
-.card {
-    min-width: 320px;
-    max-width: 20%;
-    min-height: 400px;
-    border-radius: 10px;
-    background-color: #ffffff;
-    //border: #3C6255 solid 1px;
-    box-shadow: 4px 8px 20px rgba(22, 31, 19, 0.39);
-    display: flex;
-    flex-direction: column;
-
-}
-
-.card h2 {
-    text-align: center;
-    color: #161f13;
-    font-family: "Merriweather", serif;
-    font-size: 24px;
-}
-
-
-.card h3 {
-    text-align: center;
-    font-size: 12pt;
-}
-
-.card p {
-    font-family: "Montserrat", sans-serif;
-    font-size: 14px;
-    margin: auto;
-}
 
 .card .last-watering-date {
     margin: auto;

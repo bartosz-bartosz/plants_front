@@ -147,13 +147,7 @@ h4 {
   margin-top: 8px;
 }
 
-.line {
-  margin-top: 10px;
-  margin-bottom: 16px;
-  height: 1px;
-  width: 60%;
-  background-color: #161f13;
-}
+
 
 .spinner {
   margin-top: 52px;
