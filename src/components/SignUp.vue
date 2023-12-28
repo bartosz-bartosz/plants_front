@@ -55,7 +55,7 @@ const signupClicked = async (credentials) => {
           </div>
           <div class="signup-wrapper">
             <h4 class="field-name">Password</h4>
-            <input type="password" class="standard-input" v-model="userCredentials.password"/>
+            <input type="password" class="standard-input" v-model="userCredentials.password" @keyup.enter="signupClicked(userCredentials)"/>
           </div>
           <div v-if="!signUpSuccess && errorMessage.value!==''">
             <p class="error-message"> {{ errorMessage }} </p>

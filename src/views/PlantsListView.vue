@@ -1,48 +1,61 @@
 <script setup>
-import {onMounted, ref, provide, watch} from "vue";
-  import NavBar from "../components/NavBar.vue";
-  import PlantCard from "../components/PlantCards.vue";
-  import PlantsTable from "../components/PlantsTable.vue";
-  import {apiURL, fetchData} from "../services/apiService";
+import {onMounted, ref, provide, watch, onBeforeMount} from "vue";
+import NavBar from "../components/NavBar.vue";
+import PlantCard from "../components/PlantCards.vue";
+import PlantsTable from "../components/PlantsTable.vue";
+import {apiURL, fetchData} from "../services/apiService";
+import router from "../router";
+import {useUserStore} from "../stores/users";
 
-  let listview = ref(true);
-  let itemsLimit = ref(24)
-  const plants = ref(null)
-  const plants_count = ref(0)
-  let pagination = ref(0)
+const userStore = useUserStore()
 
-  onMounted(async () =>{
-      const plants_count_res = await fetchData(apiURL+`plant/count`)
-      plants_count.value = plants_count_res.data.count
+let listview = ref(true);
+let itemsLimit = ref(24)
+const plants = ref(null)
+const plants_count = ref(0)
+let pagination = ref(0)
 
-      const plants_res = await fetchData(apiURL+`plant?limit=${itemsLimit.value}&skip=${pagination.value*itemsLimit.value}`);
-      plants.value = plants_res.data
-  });
+onBeforeMount(() => {
+  if (!userStore.user) {
+    router.push({name: 'login'});
+  }
+})
 
-  watch(pagination, async () => {
-      const plants_res = await fetchData(apiURL+`plant?limit=${itemsLimit.value}&skip=${pagination.value*itemsLimit.value}`);
-      plants.value = plants_res.data
-  });
+onMounted(async () => {
+  if (userStore.user) {
+    const plants_count_res = await fetchData(apiURL + `plant/count`)
+    plants_count.value = plants_count_res.data.count
 
-
-  function prevPage() {
-    if (pagination.value > 0) {
-      pagination.value--
-    }
+    const plants_res = await fetchData(apiURL + `plant?limit=${itemsLimit.value}&skip=${pagination.value * itemsLimit.value}`);
+    plants.value = plants_res.data
   }
 
-  function nextPage() {
-    if ((pagination.value + 1) * itemsLimit.value < plants_count.value) {
-      pagination.value++
-    }
-  }
+});
 
-  function toggleView() {
-    listview.value = !listview.value
-  }
+watch(pagination, async () => {
+  const plants_res = await fetchData(apiURL + `plant?limit=${itemsLimit.value}&skip=${pagination.value * itemsLimit.value}`);
+  plants.value = plants_res.data
+});
 
-  provide("plants", plants)
-  provide("pagination", pagination)
+
+function prevPage() {
+  if (pagination.value > 0) {
+    pagination.value--
+  }
+}
+
+function nextPage() {
+  if ((pagination.value + 1) * itemsLimit.value < plants_count.value) {
+    pagination.value++
+  }
+}
+
+function toggleView() {
+  listview.value = !listview.value
+}
+
+provide("plants", plants)
+provide("pagination", pagination)
 
 </script>
 
@@ -53,16 +66,20 @@ import {onMounted, ref, provide, watch} from "vue";
     <div class="button-container">
       <button id="list-toggle" @click="toggleView">{{ listview ? 'Show Table' : 'Show Cards' }}</button>
     </div>
-      <template v-if="listview">
-        <PlantCard/>
-      </template>
-      <template v-else>
-        <PlantsTable/>
-      </template>
+    <template v-if="listview">
+      <PlantCard/>
+    </template>
+    <template v-else>
+      <PlantsTable/>
+    </template>
     <div class="pagination">
-      <button class="pagination-button" @click="prevPage"><font-awesome-icon icon="angle-left" /></button>
-        <p class="pagination-counter">{{ pagination + 1 }} / {{ Math.ceil(plants_count / itemsLimit) }}</p>
-      <button class="pagination-button" @click="nextPage"><font-awesome-icon icon="angle-right" /></button>
+      <button class="pagination-button" @click="prevPage">
+        <font-awesome-icon icon="angle-left"/>
+      </button>
+      <p class="pagination-counter">{{ pagination + 1 }} / {{ Math.ceil(plants_count / itemsLimit) }}</p>
+      <button class="pagination-button" @click="nextPage">
+        <font-awesome-icon icon="angle-right"/>
+      </button>
     </div>
   </div>
 </template>
@@ -70,33 +87,31 @@ import {onMounted, ref, provide, watch} from "vue";
 <style scoped>
 
 .main {
-    margin-top: 24px;
-    width: 100%;
-    min-height: 120px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+  margin-top: 24px;
+  width: 100%;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .main h1 {
-    //border: #2c3e50 1px solid;
-    color: #161f13;
-    font-family: "Montserrat",sans-serif;
-    font-size: 24px;
+//border: #2c3e50 1px solid; color: #161f13; font-family: "Montserrat", sans-serif;
+  font-size: 24px;
 }
 
 .button-container {
-    margin-left: auto;
-    margin-right: 10%;
+  margin-left: auto;
+  margin-right: 10%;
 }
 
 .pagination {
-    margin: 48px auto;
-    display: flex;
-    justify-content: center;
-    column-gap: 48px;
+  margin: 48px auto;
+  display: flex;
+  justify-content: center;
+  column-gap: 48px;
 }
 
 .pagination-button {

@@ -11,7 +11,7 @@ const userStore = useUserStore()
 onMounted(async () => {
   await userStore.getUser();
   if (!userStore.user) {
-    await router.push({name: 'signup'});
+    await router.push({name: 'login'});
   }
 })
 

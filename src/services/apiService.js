@@ -52,9 +52,15 @@ const fetchData = async (endpoint, username, password) => {
     try {
         let token = localStorage.getItem('accessToken');
 
-        if (!token || isTokenExpired(token)) {
+        if ((!token || isTokenExpired(token)) && (username && password)) {
+            console.log('conditions fulfilled for getting token')
             token = await getToken(username, password);
         }
+
+        if (!token) {
+            return {error: "No token and no credentials."};
+        }
+
         const config = {
             headers: {Authorization: `Bearer ${token}`}
         };

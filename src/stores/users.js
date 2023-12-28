@@ -1,6 +1,7 @@
 import {ref, watch} from 'vue'
 import {defineStore} from 'pinia'
 import {apiURL, fetchData, signUp} from "../services/apiService";
+import router from "../router/index.js"
 
 export const useUserStore =
     defineStore('users', () => {
@@ -54,6 +55,9 @@ export const useUserStore =
 
         const handleLogout = () => {
             console.log("logging out");
+            user.value = null;
+            localStorage.clear();
+            router.push({name: 'home'});
         }
 
         const getUser = async () => {
@@ -62,7 +66,7 @@ export const useUserStore =
 
             if (!response.data) {
                 loadingUser.value = false;
-                return user.value = null
+                return user.value = null;
             }
 
             user.value = {

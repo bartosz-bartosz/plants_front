@@ -24,12 +24,16 @@ const isHovered = ref(false)
       <RouterLink to="/" :class="{'link': true, 'active': $route.path === '/'}">HOME</RouterLink>
       <RouterLink to="/my-plants" :class="{'link': true, 'active': $route.path === '/my-plants'}">PLANTS</RouterLink>
       <!--      <RouterLink to="/watering" :class="{'link': true, 'active': $route.path === '/watering'}">WATERING</RouterLink>-->
-      <RouterLink v-if="!user" to="/signup" :class="{'link': true, 'active': $route.path === '/signup'}">SIGN UP</RouterLink>
+      <RouterLink v-if="!user" to="/login" :class="{'link': true, 'active': $route.path === '/login'}">LOG IN</RouterLink>
       <RouterLink v-if="user"
                   to="/profile"
                   id="profile-tab"
-                  :class="{'link': true, 'active': $route.path === '/signup'}">PROFILE
+                  :class="{'link': true, 'active': $route.path === '/login'}">PROFILE
       </RouterLink>
+      <div v-if="user"
+           id="logout"
+           :class="{'link': true, 'active': $route.path === '/login'}">LOG OUT
+      </div>
     </div>
   </div>
 </template>
@@ -41,7 +45,7 @@ const isHovered = ref(false)
   justify-content: space-between;
   align-items: center;
   display: flex;
-  box-shadow: rgba(22, 31, 19, 0.2) 0 5px 10px ;
+  box-shadow: rgba(22, 31, 19, 0.2) 0 5px 10px;
 
 }
 

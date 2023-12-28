@@ -2,7 +2,7 @@ import {createRouter, createWebHistory} from "vue-router";
 import HomeView from "@/views/HomeView.vue";
 import PlantsListView from "@/views/PlantsListView.vue";
 import WateringView from "@/views/WateringView.vue";
-import SignUpView from "@/views/SignUpView.vue";
+import SignUpView from "@/views/LoginView.vue";
 import ProfileView from "@/views/ProfileView.vue";
 
 const router = createRouter({
@@ -24,8 +24,8 @@ const router = createRouter({
             component: WateringView
         },
         {
-            path: "/signup",
-            name: "signup",
+            path: "/login",
+            name: "login",
             component: SignUpView
         },
         {

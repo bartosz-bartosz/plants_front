@@ -5,8 +5,8 @@ import {ref} from "vue";
 import LogIn from "../components/LogIn.vue";
 import {sleepFor} from "../services/dataParsing";
 
-const showSignup = ref(true)
-const showLogin = ref(false)
+const showSignup = ref(false)
+const showLogin = ref(true)
 
 const switchTiles = async () => {
   if (showSignup.value) {

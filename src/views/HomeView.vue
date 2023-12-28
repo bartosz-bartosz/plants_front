@@ -17,7 +17,7 @@ const token = localStorage.getItem('accessToken');
 
 onMounted(() => {
   if (!userStore.user) {
-    router.push({name: 'signup'});
+    router.push({name: 'login'});
   }
 })
 
