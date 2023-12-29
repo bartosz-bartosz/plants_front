@@ -17,11 +17,20 @@ const userStore = useUserStore();
 <template>
   <NavBar/>
   <div v-if="userStore.user" class="main">
-    {{ userStore.user.username}}
+    <div id="profile-info">
+      <p>{{ userStore.user.username }}</p>
+      <p>{{ userStore.user }}</p>
+    </div>
     <button class="bigger-button" @click="userStore.handleLogout()">Log out</button>
   </div>
 </template>
 
 <style scoped>
+
+#profile-info {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
 
 </style>

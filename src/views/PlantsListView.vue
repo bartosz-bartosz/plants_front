@@ -54,6 +54,10 @@ function toggleView() {
   listview.value = !listview.value
 }
 
+function goToNewPlant() {
+  router.push({name: 'new-plant'})
+}
+
 provide("plants", plants)
 provide("pagination", pagination)
 
@@ -65,7 +69,7 @@ provide("pagination", pagination)
     <h1>MY PLANTS</h1>
     <div class="button-container">
       <button id="list-toggle" @click="toggleView">{{ listview ? 'Show Table' : 'Show Cards' }}</button>
-      <button @click="router.push({name: 'new-plant'})">Add Plant</button>
+      <button @click="goToNewPlant">Add Plant</button>
     </div>
     <template v-if="listview">
       <PlantCard/>

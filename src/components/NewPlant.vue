@@ -1,6 +1,31 @@
 <script setup>
-
 import router from "../router/index.js";
+import {reactive, toRaw} from "vue";
+import {createPlant} from "../services/apiService";
+import {useUserStore} from "../stores/users";
+
+const userStore = useUserStore()
+
+const newPlantData = reactive({
+  user_id: userStore.user.id,
+  name: "",
+  acquire_time: "",
+  is_alive: 1,
+  species: "",
+  watering_frequency: 7
+})
+
+const addPlant = async (plantData) => {
+  console.log('ADDING PLANT');
+  console.log(toRaw(newPlantData));
+
+  const response = await createPlant(plantData);
+  if (response.status === 201) {
+    console.log('success creating plant');
+    await router.push({name: 'my-plants'})
+  }
+}
+
 </script>
 
 <template>
@@ -13,36 +38,31 @@ import router from "../router/index.js";
       <!-- Plant Name -->
       <div class="input-group">
         <label for="plantName">Name</label>
-        <input type="text" id="plantName" class="standard-input"/>
+        <input type="text" id="plantName" class="standard-input" v-model="newPlantData.name"/>
       </div>
 
       <!-- Scientific Name -->
       <div class="input-group">
-        <label for="scientificName">Scientific Name</label>
-        <input type="text" id="scientificName" class="standard-input"/>
+        <label for="scientificName">Scientific Name<span class="optional-text">OPTIONAL</span> </label>
+        <input type="text" id="scientificName" class="standard-input" v-model="newPlantData.species"/>
       </div>
 
       <!-- Acquire Date -->
       <div class="input-group">
-        <label for="acquireDate">Acquire Date<span class="optional-text">(Optional)</span></label>
-        <input type="date" id="acquireDate" class="standard-input"/>
+        <label for="acquireDate">Acquire Date<span class="optional-text">OPTIONAL</span></label>
+        <input type="date" id="acquireDate" class="standard-input" v-model="newPlantData.acquire_time"/>
       </div>
 
       <!-- Watering Frequency -->
       <div class="input-group">
         <label for="wateringFrequency">Watering Frequency (days)</label>
-        <input type="number" id="wateringFrequency" class="standard-input"/>
+        <input type="number" id="wateringFrequency" class="standard-input" v-model="newPlantData.watering_frequency"/>
       </div>
 
-      <!-- Last Watering Date (Optional) -->
-      <div class="input-group">
-        <label for="lastWateringDate">Last Watering Date <span class="optional-text">(Optional)</span></label>
-        <input type="date" id="lastWateringDate" class="standard-input"/>
-      </div>
       <div class="buttons-group">
         <!-- Add Plant Button (Placeholder) -->
         <button @click="router.push({name: 'my-plants'})" class="secondary-button">Go back</button>
-        <button @click="addPlant" class="bigger-button">Add Plant!</button>
+        <button @click="addPlant(newPlantData)" type="button" class="bigger-button">Add Plant!</button>
       </div>
     </form>
   </div>
@@ -66,7 +86,7 @@ import router from "../router/index.js";
   font-size: 14px;
   font-weight: bold;
   color: #3C6255;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   align-self: flex-start;
 }
 

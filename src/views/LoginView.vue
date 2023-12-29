@@ -1,12 +1,25 @@
 <script setup>
 import NavBar from "@/components/NavBar.vue";
 import SignUp from "@/components/SignUp.vue";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import LogIn from "../components/LogIn.vue";
 import {sleepFor} from "../services/dataParsing";
+import {useUserStore} from "../stores/users";
+import router from "../router/index.js";
+import {storeToRefs} from "pinia";
+
+const userStore = useUserStore()
 
 const showSignup = ref(false)
 const showLogin = ref(true)
+
+onMounted(async () => {
+  await userStore.getUser()
+  if (userStore.user) {
+    console.log("user logged in, redirecting to /profile")
+    await router.push({name: 'profile'})
+  }
+})
 
 const switchTiles = async () => {
   if (showSignup.value) {

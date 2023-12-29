@@ -64,6 +64,7 @@ const fetchData = async (endpoint, username, password) => {
         const config = {
             headers: {Authorization: `Bearer ${token}`}
         };
+
         const response = await axios.get(endpoint, config);
         console.log(response.data);
 
@@ -100,11 +101,29 @@ const signUp = async (username, password) => {
                 };
             }
             return {
-                    error: error.response.data,
-                    response: null
-                };
+                error: error.response.data,
+                response: null
+            };
         }
     }
 };
 
-export {apiURL, fetchData, signUp};
+const createPlant = async (plantData) => {
+    const token = localStorage.getItem('accessToken');
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        }
+    };
+    const formData = new FormData();
+    for (const key in plantData) {
+        formData.append(key, plantData[key]);
+    }
+    console.log("FORM DATA:");
+    console.log(formData);
+
+    return await customRequest.post('/plant', formData, config)
+};
+
+export {apiURL, fetchData, signUp, createPlant};
