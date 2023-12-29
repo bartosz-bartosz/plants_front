@@ -1,19 +1,24 @@
 <script setup>
 import router from "../router/index.js";
-import {reactive, toRaw} from "vue";
+import {ref, reactive, toRaw} from "vue";
 import {createPlant} from "../services/apiService";
 import {useUserStore} from "../stores/users";
+import DatePick from 'vue-date-pick';
 
 const userStore = useUserStore()
+
+const todayDate = new Date().toISOString().slice(0, 10)
 
 const newPlantData = reactive({
   user_id: userStore.user.id,
   name: "",
-  acquire_time: "",
+  acquire_time: todayDate,
   is_alive: 1,
   species: "",
   watering_frequency: 7
 })
+
+
 
 const addPlant = async (plantData) => {
   console.log('ADDING PLANT');
@@ -51,6 +56,7 @@ const addPlant = async (plantData) => {
       <div class="input-group">
         <label for="acquireDate">Acquire Date<span class="optional-text">OPTIONAL</span></label>
         <input type="date" id="acquireDate" class="standard-input" v-model="newPlantData.acquire_time"/>
+<!--        <VueDatePicker v-model="newPlantData.acquire_time" :enable-time-picker="false" :preview-format="'dd - MM - yyyy'"></VueDatePicker>-->
       </div>
 
       <!-- Watering Frequency -->
@@ -98,9 +104,7 @@ const addPlant = async (plantData) => {
 }
 
 .buttons-group {
-  //border: 1px solid red;
-  margin-top: 36px;
-  display: flex;
+//border: 1px solid red; margin-top: 36px; display: flex;
   flex-direction: row;
   justify-content: space-evenly;
 }

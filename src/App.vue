@@ -18,7 +18,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <body>
+  <body v-if="userStore.user">
   <RouterView/>
   </body>
 </template>
