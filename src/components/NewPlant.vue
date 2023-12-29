@@ -1,5 +1,6 @@
 <script setup>
 
+import router from "../router/index.js";
 </script>
 
 <template>
@@ -38,9 +39,11 @@
         <label for="lastWateringDate">Last Watering Date <span class="optional-text">(Optional)</span></label>
         <input type="date" id="lastWateringDate" class="standard-input"/>
       </div>
-
-      <!-- Add Plant Button (Placeholder) -->
-      <button @click="addPlant" class="add-plant-button">Add Plant!</button>
+      <div class="buttons-group">
+        <!-- Add Plant Button (Placeholder) -->
+        <button @click="router.push({name: 'my-plants'})" class="secondary-button">Go back</button>
+        <button @click="addPlant" class="bigger-button">Add Plant!</button>
+      </div>
     </form>
   </div>
 </template>
@@ -49,27 +52,38 @@
 
 .card {
   margin-top: 36px;
+  padding: 2rem 4rem;
 }
 
-  .input-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-  }
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
 
-  .input-group label {
-    font-family: "Montserrat", sans-serif;
-    font-size: 14px;
-    color: #3C6255;
-    margin-bottom: 5px;
-  }
+.input-group label {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  color: #3C6255;
+  margin-bottom: 5px;
+  align-self: flex-start;
+}
 
-  .optional-text {
-    font-family: "Montserrat", sans-serif;
-    font-size: 12px;
-    color: #AABBB1;
-    margin-left: 5px;
-  }
+.optional-text {
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  color: #AABBB1;
+  margin-left: 5px;
+}
+
+.buttons-group {
+  //border: 1px solid red;
+  margin-top: 36px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
 
 .add-plant-button {
   /* Add your button styling here */

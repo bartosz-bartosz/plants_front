@@ -28,12 +28,8 @@ const isHovered = ref(false)
       <RouterLink v-if="user"
                   to="/profile"
                   id="profile-tab"
-                  :class="{'link': true, 'active': $route.path === '/login'}">PROFILE
+                  :class="{'link': true, 'active': $route.path === '/profile'}">PROFILE
       </RouterLink>
-      <div v-if="user"
-           id="logout"
-           :class="{'link': true, 'active': $route.path === '/login'}">LOG OUT
-      </div>
     </div>
   </div>
 </template>

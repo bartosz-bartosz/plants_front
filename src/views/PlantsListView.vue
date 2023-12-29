@@ -65,6 +65,7 @@ provide("pagination", pagination)
     <h1>MY PLANTS</h1>
     <div class="button-container">
       <button id="list-toggle" @click="toggleView">{{ listview ? 'Show Table' : 'Show Cards' }}</button>
+      <button @click="router.push({name: 'new-plant'})">Add Plant</button>
     </div>
     <template v-if="listview">
       <PlantCard/>
@@ -98,13 +99,21 @@ provide("pagination", pagination)
 }
 
 .main h1 {
-//border: #2c3e50 1px solid; color: #161f13; font-family: "Montserrat", sans-serif;
-  font-size: 24px;
+//border: #2c3e50 1px solid; color: #161f13; font-family: "Montserrat", sans-serif; font-size: 24px;
+}
+
+.buttons-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .button-container {
   margin-left: auto;
   margin-right: 10%;
+  display: flex;
+  flex-direction: row;
+  column-gap: 12px;
 }
 
 .pagination {
