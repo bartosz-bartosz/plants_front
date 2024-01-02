@@ -5,6 +5,7 @@ import {createPlant} from "../services/apiService";
 import {useUserStore} from "../stores/users";
 
 const userStore = useUserStore()
+const creationFormError = ref(null)
 
 const todayDate = new Date().toISOString().slice(0, 10)
 
@@ -17,16 +18,23 @@ const newPlantData = reactive({
   watering_frequency: 7
 })
 
-
-
 const addPlant = async (plantData) => {
   console.log('ADDING PLANT');
   console.log(toRaw(newPlantData));
 
-  const response = await createPlant(plantData);
-  if (response.status === 201) {
-    console.log('success creating plant');
-    await router.push({name: 'my-plants'})
+  if (name.length <= 2) {
+    creationFormError.value = 'Name too short.'
+  } else if (name.length > 100) {
+    creationFormError.value = 'Name too long.'
+  }
+
+  if (!creationFormError.value) {
+
+    const response = await createPlant(plantData);
+    if (response.status === 201) {
+      console.log('success creating plant');
+      await router.push({name: 'my-plants'})
+    }
   }
 }
 
@@ -55,15 +63,20 @@ const addPlant = async (plantData) => {
       <div class="input-group">
         <label for="acquireDate">Acquire Date<span class="optional-text">OPTIONAL</span></label>
         <input type="date" id="acquireDate" class="standard-input" v-model="newPlantData.acquire_time"/>
-<!--        <VueDatePicker v-model="newPlantData.acquire_time" :enable-time-picker="false" :preview-format="'dd - MM - yyyy'"></VueDatePicker>-->
+        <!--        <VueDatePicker v-model="newPlantData.acquire_time" :enable-time-picker="false" :preview-format="'dd - MM - yyyy'"></VueDatePicker>-->
       </div>
 
       <!-- Watering Frequency -->
       <div class="input-group">
         <label for="wateringFrequency">Watering Frequency (days)</label>
-        <input type="number" id="wateringFrequency" class="standard-input" v-model="newPlantData.watering_frequency"/>
+        <input type="number" id="wateringFrequency" class="standard-input" min="1" v-model="newPlantData.watering_frequency"/>
       </div>
 
+
+      <!-- Error display group-->
+      <div v-if="creationFormError">
+        <p class="error-message">{{ creationFormError }}</p>
+      </div>
       <div class="buttons-group">
         <!-- Add Plant Button (Placeholder) -->
         <button @click="router.push({name: 'my-plants'})" class="secondary-button">Go back</button>
@@ -103,8 +116,7 @@ const addPlant = async (plantData) => {
 }
 
 .buttons-group {
-//border: 1px solid red; margin-top: 36px; display: flex;
-  flex-direction: row;
+//border: 1px solid red; margin-top: 36px; display: flex; flex-direction: row;
   justify-content: space-evenly;
 }
 
