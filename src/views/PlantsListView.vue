@@ -15,11 +15,6 @@ const plants = ref(null)
 const plants_count = ref(0)
 let pagination = ref(0)
 
-onBeforeMount(() => {
-  if (!userStore.user) {
-    router.push({name: 'login'});
-  }
-})
 
 onMounted(async () => {
   if (userStore.user) {

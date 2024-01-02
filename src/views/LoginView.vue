@@ -13,6 +13,7 @@ const userStore = useUserStore()
 const showSignup = ref(false)
 const showLogin = ref(true)
 
+
 onMounted(async () => {
   await userStore.getUser()
   if (userStore.user) {

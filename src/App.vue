@@ -8,11 +8,26 @@ import router from "./router";
 
 const userStore = useUserStore()
 
-onMounted(async () => {
-  // await userStore.getUser();
-  if (!userStore.user) {
-    await router.push({name: 'login'});
-  }
+// onMounted(async () => {
+//   // await userStore.getUser();
+//   if (!userStore.user) {
+//     await router.push({name: 'login'});
+//   }
+// })
+
+router.beforeEach((to, from, next) => {
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (!userStore.user) {
+            console.log("router logic - user logged in, redirectiong")
+            next({name: 'login'})
+        }
+        else {
+            next()
+        }
+    }
+    else {
+        next()
+    }
 })
 
 </script>

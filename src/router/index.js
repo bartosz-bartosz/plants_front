@@ -1,10 +1,11 @@
 import {createRouter, createWebHistory} from "vue-router";
 import HomeView from "@/views/HomeView.vue";
 import PlantsListView from "@/views/PlantsListView.vue";
-import WateringView from "@/views/WateringView.vue";
 import SignUpView from "@/views/LoginView.vue";
 import ProfileView from "@/views/ProfileView.vue";
 import AddPlantView from "../views/AddPlantView.vue";
+import PlantOverview from "../views/PlantOverview.vue";
+
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,17 +13,26 @@ const router = createRouter({
         {
             path: "/",
             name: "home",
-            component: HomeView
+            component: HomeView,
+            meta: {
+                requiresAuth: true
+            }
         },
         {
             path: "/my-plants",
             name: "my-plants",
-            component: PlantsListView
+            component: PlantsListView,
+            meta: {
+                requiresAuth: true
+            }
         },
         {
-            path: "/watering",
-            name: "watering",
-            component: WateringView
+            path: "/plant/:id",
+            name: "plant",
+            component: PlantOverview,
+            meta: {
+                requiresAuth: true
+            }
         },
         {
             path: "/login",
@@ -32,7 +42,10 @@ const router = createRouter({
         {
             path: "/profile",
             name: "profile",
-            component: ProfileView
+            component: ProfileView,
+            meta: {
+                requiresAuth: true
+            }
         },
         {
             path: "/new-plant",
@@ -41,5 +54,6 @@ const router = createRouter({
         }
     ]
 })
+
 
 export default router;
