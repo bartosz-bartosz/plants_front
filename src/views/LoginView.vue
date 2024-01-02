@@ -14,13 +14,13 @@ const showSignup = ref(false)
 const showLogin = ref(true)
 
 
-onMounted(async () => {
-  await userStore.getUser()
-  if (userStore.user) {
-    console.log("user logged in, redirecting to /profile")
-    await router.push({name: 'profile'})
-  }
-})
+// onMounted(async () => {
+//   await userStore.getUser()
+//   if (userStore.user) {
+//     console.log("user logged in, redirecting to /profile")
+//     await router.push({name: 'profile'})
+//   }
+// })
 
 const switchTiles = async () => {
   if (showSignup.value) {

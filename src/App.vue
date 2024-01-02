@@ -15,10 +15,11 @@ const userStore = useUserStore()
 //   }
 // })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
+      await userStore.getUser()
         if (!userStore.user) {
-            console.log("router logic - user logged in, redirectiong")
+            console.log("router logic - user not detected, redirecting")
             next({name: 'login'})
         }
         else {

@@ -128,4 +128,18 @@ const createPlant = async (plantData) => {
     return await customRequest.post('/plant', formData, config)
 };
 
-export {apiURL, fetchData, signUp, createPlant};
+const fetchPlant = async (plantID) => {
+    const token = localStorage.getItem('accessToken');
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        }
+    };
+    const response = await customRequest(`/plant/${plantID}`, config);
+    console.log(response);
+    return response.data;
+
+}
+
+export {apiURL, fetchData, signUp, createPlant, fetchPlant};

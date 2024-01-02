@@ -50,7 +50,10 @@ const router = createRouter({
         {
             path: "/new-plant",
             name: "new-plant",
-            component: AddPlantView
+            component: AddPlantView,
+            meta: {
+                requiresAuth: true
+            }
         }
     ]
 })
