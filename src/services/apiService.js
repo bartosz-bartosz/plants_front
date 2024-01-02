@@ -58,6 +58,7 @@ const fetchData = async (endpoint, username, password) => {
         }
 
         if (!token) {
+            console.log("No token or credentials to get one.");
             return {error: "No token and no credentials."};
         }
 
@@ -65,11 +66,12 @@ const fetchData = async (endpoint, username, password) => {
             headers: {Authorization: `Bearer ${token}`}
         };
 
-        const response = await axios.get(endpoint, config);
-        console.log(response.data);
+        return await axios.get(endpoint, config);
 
-        return response;
     } catch (error) {
+        if (error.response.status === 401) {
+            return {error: "401 - Unauthorized"}
+        }
         console.error(error);
     }
 };

@@ -9,7 +9,7 @@ import router from "./router";
 const userStore = useUserStore()
 
 onMounted(async () => {
-  await userStore.getUser();
+  // await userStore.getUser();
   if (!userStore.user) {
     await router.push({name: 'login'});
   }
@@ -18,7 +18,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <body v-if="userStore.user">
+  <body>
   <RouterView/>
   </body>
 </template>

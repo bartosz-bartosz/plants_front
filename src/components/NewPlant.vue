@@ -3,7 +3,6 @@ import router from "../router/index.js";
 import {ref, reactive, toRaw} from "vue";
 import {createPlant} from "../services/apiService";
 import {useUserStore} from "../stores/users";
-import DatePick from 'vue-date-pick';
 
 const userStore = useUserStore()
 
