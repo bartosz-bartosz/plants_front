@@ -22,9 +22,11 @@ const addPlant = async (plantData) => {
   console.log('ADDING PLANT');
   console.log(toRaw(newPlantData));
 
-  if (name.length <= 2) {
+  creationFormError.value = null
+
+  if (plantData.name.length <= 2) {
     creationFormError.value = 'Name too short.'
-  } else if (name.length > 100) {
+  } else if (plantData.name.length > 100) {
     creationFormError.value = 'Name too long.'
   }
 
@@ -62,7 +64,7 @@ const addPlant = async (plantData) => {
       <!-- Acquire Date -->
       <div class="input-group">
         <label for="acquireDate">Acquire Date<span class="optional-text">OPTIONAL</span></label>
-        <input type="date" id="acquireDate" class="standard-input" v-model="newPlantData.acquire_time"/>
+        <input type="date" id="acquireDate" :max="todayDate" class="standard-input" v-model="newPlantData.acquire_time"/>
         <!--        <VueDatePicker v-model="newPlantData.acquire_time" :enable-time-picker="false" :preview-format="'dd - MM - yyyy'"></VueDatePicker>-->
       </div>
 
