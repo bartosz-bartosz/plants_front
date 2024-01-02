@@ -1,7 +1,9 @@
 <script setup>
   import { defineProps, ref, watchEffect } from "vue";
+  import {RouterLink} from "vue-router";
 
-  const {name, species, watering_frequency, last_watering} = defineProps([
+  const {plant_id, name, species, watering_frequency, last_watering} = defineProps([
+      'plant_id',
       'name',
       'species',
       'watering_frequency',
@@ -40,7 +42,7 @@
 <template>
   <div class="card">
       <div class="title-card-section">
-        <h2>{{ name }}</h2>
+        <RouterLink :to="{ name: 'plant', params: {id: plant_id}}"><h2 class="clickable-text">{{ name }}</h2></RouterLink>
         <div class="line"></div>
         <h3 class="species-italic">{{ species }}</h3>
       </div>
@@ -68,6 +70,10 @@
   //background-image: radial-gradient(circle farthest-corner at 50% 0%, #eaf1d6 40%, #fff 75%);
   background: linear-gradient(180deg, rgba(234, 241, 214, 1) 30%, rgba(255, 255, 255, 1) 100%);
   border-radius: 10px;
+}
+
+h2 {
+  text-decoration: none;
 }
 
 

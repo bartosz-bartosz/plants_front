@@ -16,6 +16,7 @@ const plants = inject("plants")
       <Card
           v-for="plant in plants"
           :key="plant.id"
+          :plant_id="plant.id"
           :name="plant.name"
           :species="plant.species"
           :last_watering="plant.last_watering"
