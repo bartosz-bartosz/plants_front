@@ -71,6 +71,18 @@ button.secondary-button {
     background-color: white;
 }
 
+button.water-button {
+    border-radius: 25px;
+    background-color: #57b3f6;
+    border-color: #28a6fa;
+}
+
+button.water-button:hover {
+    background-color: #28a6fa;
+    border-color: #57b3f6;
+    color: white;
+}
+
 input {
     min-height: 38px;
     border: solid 0;

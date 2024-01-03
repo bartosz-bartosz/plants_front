@@ -139,7 +139,24 @@ const fetchPlant = async (plantID) => {
     const response = await customRequest(`/plant/${plantID}`, config);
     console.log(response);
     return response.data;
-
 }
 
-export {apiURL, fetchData, signUp, createPlant, fetchPlant};
+const waterPlant = async (userID, plantID) => {
+    const token = localStorage.getItem('accessToken');
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        }
+    };
+
+    const formData = new FormData();
+    formData.append('user_id', userID);
+    formData.append('plant_id', plantID);
+    console.log(formData);
+
+    const response = await axios.post(apiURL + 'watering', formData, config)
+    console.log(response);
+}
+
+export {apiURL, fetchData, signUp, createPlant, fetchPlant, waterPlant};
