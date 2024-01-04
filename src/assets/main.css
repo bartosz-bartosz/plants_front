@@ -44,6 +44,7 @@ h5 {
     font-family: "Open Sans", serif;
     font-size: 14px;
     font-weight: bolder;
+    margin: 0;
 }
 
 .clickable-text:hover {

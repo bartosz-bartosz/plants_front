@@ -40,8 +40,7 @@ watchEffect(() => {
       timeSinceLastWatering.value = `${weeksPassed} weeks ago`;
     } else if (daysPassed === 0) {
       timeSinceLastWatering.value = `Today`;
-    }
-    else {
+    } else {
       timeSinceLastWatering.value = `${daysPassed} days ago`;
     }
   }
@@ -83,15 +82,42 @@ const handlePlantWatering = async (plantID) => {
     </div>
 
     <!--BODY-->
-    <div class="plant-card-body">
-      <div class="plant-last-watering">
-        <h5>Last watering</h5>
-        <div class="plant-last-watering-values">
-          <p v-if="last_watering">{{ timeSinceLastWatering }},</p>
-          <p v-if='last_watering' class="last-watering-date">{{ localLastWatering }}</p>
-          <p v-else class="last-watering-date"> - </p>
+    <!--    <div class="plant-card-body">-->
+    <!--      <div class="plant-last-watering">-->
+    <!--        <h5>Last watering</h5>-->
+    <!--        <div class="plant-last-watering-values">-->
+    <!--          <p v-if="last_watering">{{ timeSinceLastWatering }},</p>-->
+    <!--          <p v-if='last_watering' class="last-watering-date">{{ localLastWatering }}</p>-->
+    <!--          <p v-else class="last-watering-date"> - </p>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--      <p class="watering-fq-text">Water every <b>{{ watering_frequency }}</b> days</p>-->
+
+    <!--    </div>-->
+
+    <!--BODY-->
+    <div class="alt-plant-card-body">
+
+      <div class="alt-top-wrapper">
+        <div class="alt-corner-data">
+          <h5>Last</h5>
+          <div class="alt-corner-values">
+            <p v-if="last_watering">{{ timeSinceLastWatering }},</p>
+            <p v-if='last_watering' class="last-watering-date">{{ localLastWatering }}</p>
+            <p v-else class="last-watering-date"> - </p>
+          </div>
+        </div>
+        <div class="alt-corner-data">
+          <h5>Next</h5>
+          <div class="alt-corner-values">
+            <p v-if="last_watering">{{ timeSinceLastWatering }},</p>
+            <p v-if='last_watering' class="last-watering-date">{{ localLastWatering }}</p>
+            <p v-else class="last-watering-date"> - </p>
+          </div>
         </div>
       </div>
+
+      <div class="alt-big-number">{{ watering_frequency }}</div>
       <p class="watering-fq-text">Water every <b>{{ watering_frequency }}</b> days</p>
 
     </div>
@@ -120,7 +146,7 @@ h2 {
 }
 
 .card .watering-fq-text {
-  margin-top: 24px;
+  margin-top: 32px;
   text-align: center;
 }
 
@@ -135,11 +161,38 @@ h2 {
   width: 100%;
 }
 
+.card .alt-plant-card-body {
+  //border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 100%;
+}
+
 .plant-last-watering {
   display: flex;
   justify-content: space-around;
   align-items: center;
   padding: 0 24px;
+}
+
+.alt-top-wrapper {
+  //border: 1px solid greenyellow;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 2px 12px;
+  min-height: 66px;
+}
+
+.alt-corner-data {
+  //border: 1px solid cyan;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  height: fit-content;
+  min-width: 85px;
 }
 
 .plant-last-watering-values {
@@ -148,6 +201,26 @@ h2 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.alt-corner-values {
+  //border: 1px solid purple;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.alt-big-number {
+  //border: 1px red solid;
+
+  font-family: 'Rozha One', sans-serif;
+  color: var(--light-green);
+  margin: 0;
+  font-size: 170px;
+  line-height: 50px;
+  height: fit-content;
 }
 
 .card .buttons-wrapper {

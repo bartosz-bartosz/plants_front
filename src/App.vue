@@ -3,6 +3,7 @@ import {RouterView} from "vue-router";
 import {onMounted, ref} from "vue";
 import "@fontsource/open-sans";
 import "@fontsource/merriweather"
+import '@fontsource/rozha-one';
 import {useUserStore} from "./stores/users";
 import router from "./router";
 
