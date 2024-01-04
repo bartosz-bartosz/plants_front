@@ -22,8 +22,6 @@ function timeAgo(date) {
         return `-`
     }
 
-
-
     if (daysPassed >= 8) {
         const weeksPassed = Math.floor(daysPassed / 7);
         return `${weeksPassed} weeks ago`;

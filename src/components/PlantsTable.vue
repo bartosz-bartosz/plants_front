@@ -70,15 +70,17 @@ const handlePlantWatering = async (plantID) => {
       <tbody>
       <tr v-for="plant in plants" :key="plant.id">
         <th><input type="checkbox"></th>
-        <td>{{ plant.name }}</td>
+        <td>
+          <p class="clickable-text" v-on:click="$router.push({name: 'plant', params: {id: plant.id}})">{{ plant.name }}</p>
+        </td>
         <td class="species-italic">{{ plant.species }}</td>
         <td>{{ timeAgo(plant.last_watering) }}</td>
         <td>{{ plant.watering_frequency }} days</td>
         <td>
-          <button v-if="plant.alreadyWatered" @click="handlePlantWatering">Water!</button>
+          <button v-if="!plant.alreadyWatered" @click="handlePlantWatering">Water!</button>
           <div class="already-watered" v-else>
             <font-awesome-icon class="success-icon" icon="fa-circle-check"/>
-            <p class="success-text">Watered today</p>
+            <p class="success-text">Watered</p>
           </div>
         </td>
       </tr>
@@ -165,11 +167,12 @@ const handlePlantWatering = async (plantID) => {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  column-gap: 12px;
+  column-gap: 4px;
 
 }
+
 .success-icon {
-  font-size: 18px;
+  font-size: 12px;
 }
 
 .success-text {

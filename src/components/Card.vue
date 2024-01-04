@@ -69,7 +69,7 @@ const handlePlantWatering = async (plantID) => {
 <template>
   <div class="card">
     <div class="title-card-section">
-      <RouterLink :to="{ name: 'plant', params: {id: plant_id}}"><h2 class="clickable-text">{{ name }}</h2></RouterLink>
+      <h2 @click="$router.push({name: 'plant', params: {id: plant_id}})" class="clickable-text">{{ name }}</h2>
       <div class="line"></div>
       <h3 class="species-italic">{{ species }}</h3>
     </div>
@@ -82,7 +82,7 @@ const handlePlantWatering = async (plantID) => {
       <button v-if="!alreadyWatered" @click="handlePlantWatering(plant_id)">Water!</button>
       <div class="already-watered" v-else>
         <font-awesome-icon class="success-icon" icon="fa-circle-check" />
-        <p class="success-text">Watered today</p>
+        <p class="success-text">Watered</p>
       </div>
     </div>
   </div>

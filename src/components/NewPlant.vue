@@ -81,7 +81,7 @@ const addPlant = async (plantData) => {
       </div>
       <div class="buttons-group">
         <!-- Add Plant Button (Placeholder) -->
-        <button @click="router.push({name: 'my-plants'})" class="secondary-button">Go back</button>
+        <button @click="$router.push({name: 'my-plants'})" class="secondary-button">Go back</button>
         <button @click="addPlant(newPlantData)" type="button" class="bigger-button">Add Plant!</button>
       </div>
     </form>
