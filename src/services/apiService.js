@@ -155,8 +155,8 @@ const waterPlant = async (userID, plantID) => {
     formData.append('plant_id', plantID);
     console.log(formData);
 
-    const response = await axios.post(apiURL + 'watering', formData, config)
-    console.log(response);
+    return await axios.post(apiURL + 'watering', formData, config)
+
 }
 
 export {apiURL, fetchData, signUp, createPlant, fetchPlant, waterPlant};

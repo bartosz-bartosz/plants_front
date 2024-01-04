@@ -1,5 +1,5 @@
 <script setup>
-import {defineProps, ref, watchEffect} from "vue";
+import {defineProps, ref, watchEffect, onMounted} from "vue";
 import {RouterLink} from "vue-router";
 import {waterPlant} from "../services/apiService";
 import {useUserStore} from "../stores/users";
@@ -14,6 +14,7 @@ const {plant_id, name, species, watering_frequency, last_watering} = defineProps
   'last_watering'
 ])
 
+const alreadyWatered = ref(false)
 const localLastWatering = ref('');
 
 // Watch for changes in the last_watering prop
@@ -24,6 +25,7 @@ watchEffect(() => {
 
 // Computed property to calculate the time since last watering
 const timeSinceLastWatering = ref('');
+
 watchEffect(() => {
   if (last_watering) {
     const lastWateringDate = new Date(last_watering);
@@ -40,9 +42,25 @@ watchEffect(() => {
   }
 });
 
+function isToday(date) {
+  const today = new Date();
+  const compared_date = new Date(date);
+  return today.toDateString() === compared_date.toDateString();
+}
+
+onMounted(() => {
+  console.log(typeof last_watering)
+  if (isToday(last_watering)) {
+    alreadyWatered.value = true;
+  }
+})
+
 const handlePlantWatering = async (plantID) => {
   const userID = userStore.user.id
   const response = await waterPlant(userID, plantID)
+  if (response.status === 200) {
+    alreadyWatered.value = true;
+  }
 }
 
 </script>
@@ -60,8 +78,12 @@ const handlePlantWatering = async (plantID) => {
     <p v-if="last_watering">{{ timeSinceLastWatering }}</p>
     <p class="watering-fq-text">Water every <b>{{ watering_frequency }}</b> days</p>
     <div class="buttons-wrapper">
-      <button>Show more</button>
-      <button @click="handlePlantWatering(plant_id)">Water!</button>
+      <button @click="$router.push({name: 'plant', params: {id: plant_id}})">Show more</button>
+      <button v-if="!alreadyWatered" @click="handlePlantWatering(plant_id)">Water!</button>
+      <div class="already-watered" v-else>
+        <font-awesome-icon class="success-icon" icon="fa-circle-check" />
+        <p class="success-text">Watered today</p>
+      </div>
     </div>
   </div>
 </template>
@@ -93,6 +115,14 @@ h2 {
   //border: solid 1px red;
   justify-content: space-between;
   column-gap: 24px;
+}
+
+.success-icon {
+  font-size: 18px;
+}
+
+.success-text {
+  font-size: 12px;
 }
 
 

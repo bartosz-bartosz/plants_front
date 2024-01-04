@@ -1,14 +1,39 @@
 <script setup>
 import {inject, onMounted, ref} from "vue";
-  import {fetchData, apiURL} from "../services/apiService";
-  import {formatDateTime, timeAgo} from "../services/dataParsing";
-  import { NSpin } from 'naive-ui';
+import {fetchData, apiURL, waterPlant} from "../services/apiService";
+import {formatDateTime, timeAgo} from "../services/dataParsing";
+import {NSpin} from 'naive-ui';
+import {useUserStore} from "../stores/users";
 
-  // const plants = ref(null)
-  const plants =inject("plants")
+const userStore = useUserStore()
 
-  let pagination = ref(0)
+// const plants = ref(null)
+const plants = inject("plants")
+console.log(plants._rawValue)
+let pagination = ref(0)
 
+function isToday(date) {
+  const today = new Date();
+  const compared_date = new Date(date);
+  return today.toDateString() === compared_date.toDateString();
+}
+
+onMounted(() => {
+  for (let i = 0; i < plants._rawValue.length; i++) {
+    const plantItem = plants._rawValue[i];
+    plantItem.alreadyWatered = isToday(plantItem.last_watering);
+    console.log(plantItem.alreadyWatered);
+  }
+  console.log(plants);
+})
+
+const handlePlantWatering = async (plantID) => {
+  const userID = userStore.user.id
+  const response = await waterPlant(userID, plantID)
+  if (response.status === 200) {
+    alreadyWatered.value = true;
+  }
+}
 
 </script>
 
@@ -16,25 +41,48 @@ import {inject, onMounted, ref} from "vue";
   <div class="table-wrapper" v-if="plants !== null">
     <table class="plants-table">
       <thead>
-        <tr>
-          <th><font-awesome-icon icon="fa-circle-check" /></th>
-          <th><font-awesome-icon icon="address-card" /> Name</th>
-          <th><font-awesome-icon icon="dna" /> Species</th>
-          <th><font-awesome-icon icon="calendar-day" /> Last watering</th>
-          <th><font-awesome-icon icon="stopwatch" /> Every...</th>
-          <th><font-awesome-icon icon="droplet" /> Water!</th>
-        </tr>
+      <tr>
+        <th>
+          <font-awesome-icon icon="fa-circle-check"/>
+        </th>
+        <th>
+          <font-awesome-icon icon="address-card"/>
+          Name
+        </th>
+        <th>
+          <font-awesome-icon icon="dna"/>
+          Species
+        </th>
+        <th>
+          <font-awesome-icon icon="calendar-day"/>
+          Last watering
+        </th>
+        <th>
+          <font-awesome-icon icon="stopwatch"/>
+          Every...
+        </th>
+        <th>
+          <font-awesome-icon icon="droplet"/>
+          Water!
+        </th>
+      </tr>
       </thead>
-        <tbody>
-          <tr v-for="plant in plants" :key="plant.id">
-            <th><input type="checkbox"></th>
-            <td>{{ plant.name }}</td>
-            <td class="species-italic">{{ plant.species }}</td>
-            <td>{{ timeAgo(plant.last_watering) }}</td>
-            <td>{{ plant.watering_frequency }} days</td>
-            <td><button>Water!</button></td>
-          </tr>
-        </tbody>
+      <tbody>
+      <tr v-for="plant in plants" :key="plant.id">
+        <th><input type="checkbox"></th>
+        <td>{{ plant.name }}</td>
+        <td class="species-italic">{{ plant.species }}</td>
+        <td>{{ timeAgo(plant.last_watering) }}</td>
+        <td>{{ plant.watering_frequency }} days</td>
+        <td>
+          <button v-if="plant.alreadyWatered" @click="handlePlantWatering">Water!</button>
+          <div class="already-watered" v-else>
+            <font-awesome-icon class="success-icon" icon="fa-circle-check"/>
+            <p class="success-text">Watered today</p>
+          </div>
+        </td>
+      </tr>
+      </tbody>
     </table>
   </div>
   <div class="spinner" v-else>
@@ -47,7 +95,7 @@ import {inject, onMounted, ref} from "vue";
 .table-wrapper {
   width: 80%;
   margin: 48px 70px 70px;
-  box-shadow: 0 15px 25px rgba( 0, 0, 0, 0.2 );
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
   border-radius: 20px;
 }
 
@@ -65,20 +113,20 @@ import {inject, onMounted, ref} from "vue";
 }
 
 .plants-table td, .plants-table th {
-    text-align: center;
-    padding: 8px;
+  text-align: center;
+  padding: 8px;
 }
 
 .plants-table td {
-    font-size: 14px;
-    padding: 12px 32px;
-    min-width: 200px;
+  font-size: 14px;
+  padding: 12px 32px;
+  min-width: 200px;
 }
 
 .plants-table thead th {
-    color: #ffffff;
-    background: #40513B;
-    padding: 16px;
+  color: #ffffff;
+  background: #40513B;
+  padding: 16px;
 }
 
 .plants-table thead th:nth-child(1) {
@@ -90,12 +138,12 @@ import {inject, onMounted, ref} from "vue";
 }
 
 .plants-table thead th:nth-child(odd) {
-    color: #ffffff;
-    background: #40513B;
+  color: #ffffff;
+  background: #40513B;
 }
 
 .plants-table tr:nth-child(even) {
-    background: #eaf1d6;
+  background: #eaf1d6;
 }
 
 .plants-table tr:last-child {
@@ -112,5 +160,20 @@ import {inject, onMounted, ref} from "vue";
   color: black;
 }
 
+.already-watered {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  column-gap: 12px;
+
+}
+.success-icon {
+  font-size: 18px;
+}
+
+.success-text {
+  font-size: 12px;
+}
 
 </style>

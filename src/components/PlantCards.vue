@@ -39,7 +39,7 @@ const plants = inject("plants")
   margin: 60px auto auto;
 //flex-flow:row wrap; display: grid;
   grid-template-columns: repeat(auto-fill, 320px);
-  grid-gap: 1rem;
+  grid-gap: 2rem 1rem;
   justify-content: space-around;
 }
 

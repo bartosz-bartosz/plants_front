@@ -29,4 +29,6 @@ onMounted(async () => {
 .main {
   border: 1px solid red;
 }
+
+
 </style>
