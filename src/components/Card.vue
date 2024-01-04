@@ -20,7 +20,8 @@ const localLastWatering = ref('');
 // Watch for changes in the last_watering prop
 watchEffect(() => {
   const dateObj = new Date(last_watering);
-  localLastWatering.value = dateObj.toLocaleString();
+  const options = {day: 'numeric', month: 'long', year: 'numeric'};
+  localLastWatering.value = dateObj.toLocaleDateString('en-US', options);
 });
 
 // Computed property to calculate the time since last watering
@@ -33,10 +34,14 @@ watchEffect(() => {
     const timeDifferenceMs = currentDate - lastWateringDate;
     const daysPassed = Math.floor(timeDifferenceMs / (1000 * 60 * 60 * 24));
 
+
     if (daysPassed >= 8) {
       const weeksPassed = Math.floor(daysPassed / 7);
       timeSinceLastWatering.value = `${weeksPassed} weeks ago`;
-    } else {
+    } else if (daysPassed === 0) {
+      timeSinceLastWatering.value = `Today`;
+    }
+    else {
       timeSinceLastWatering.value = `${daysPassed} days ago`;
     }
   }
@@ -68,20 +73,35 @@ const handlePlantWatering = async (plantID) => {
 
 <template>
   <div class="card">
+
+    <!--TITLE-->
     <div class="title-card-section">
       <h2 @click="$router.push({name: 'plant', params: {id: plant_id}})" class="clickable-text">{{ name }}</h2>
       <div class="line"></div>
-      <h3 class="species-italic">{{ species }}</h3>
+      <h3 v-if="species" class="species-italic">{{ species }}</h3>
+      <h3 v-else class="species-italic">-</h3>
     </div>
-    <p v-if='last_watering' class="last-watering-date">{{ localLastWatering }}</p>
-    <p v-else class="last-watering-date"> This plant hasn't been watered yet :( </p>
-    <p v-if="last_watering">{{ timeSinceLastWatering }}</p>
-    <p class="watering-fq-text">Water every <b>{{ watering_frequency }}</b> days</p>
+
+    <!--BODY-->
+    <div class="plant-card-body">
+      <div class="plant-last-watering">
+        <h5>Last watering</h5>
+        <div class="plant-last-watering-values">
+          <p v-if="last_watering">{{ timeSinceLastWatering }},</p>
+          <p v-if='last_watering' class="last-watering-date">{{ localLastWatering }}</p>
+          <p v-else class="last-watering-date"> - </p>
+        </div>
+      </div>
+      <p class="watering-fq-text">Water every <b>{{ watering_frequency }}</b> days</p>
+
+    </div>
+
+    <!--BUTTONS-->
     <div class="buttons-wrapper">
       <button @click="$router.push({name: 'plant', params: {id: plant_id}})">Show more</button>
       <button v-if="!alreadyWatered" @click="handlePlantWatering(plant_id)">Water!</button>
       <div class="already-watered" v-else>
-        <font-awesome-icon class="success-icon" icon="fa-circle-check" />
+        <font-awesome-icon class="success-icon" icon="fa-circle-check"/>
         <p class="success-text">Watered</p>
       </div>
     </div>
@@ -94,27 +114,47 @@ h2 {
 }
 
 .card .last-watering-date {
+  font-size: 0.8em;
   margin: auto;
   text-align: center;
 }
 
 .card .watering-fq-text {
-  margin: auto;
+  margin-top: 24px;
   text-align: center;
 }
 
 .card .title-card-section {
-//background-image: radial-gradient(circle farthest-corner at 50% 0%, #eaf1d6 40%, #fff 75%); background: linear-gradient(180deg, rgba(234, 241, 214, 1) 30%, rgba(255, 255, 255, 1) 100%);
-  border-radius: 10px;
+//background-image: radial-gradient(circle farthest-corner at 50% 0%, #eaf1d6 40%, #fff 75%); background: linear-gradient(180deg, rgba(234, 241, 214, 1) 30%, rgba(255, 255, 255, 1) 100%); border-radius: 10px;
+}
+
+.card .plant-card-body {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 100%;
+}
+
+.plant-last-watering {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 24px;
+}
+
+.plant-last-watering-values {
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .card .buttons-wrapper {
   display: flex;
   margin: auto;
   padding: 1rem;
-  //border: solid 1px red;
-  justify-content: space-between;
-  column-gap: 24px;
+//border: solid 1px red; justify-content: space-between; column-gap: 24px;
 }
 
 .success-icon {
