@@ -20,7 +20,9 @@ const plants = inject("plants")
           :name="plant.name"
           :species="plant.species"
           :last_watering="plant.last_watering"
+          :next_watering="plant.next_watering"
           :watering_frequency="plant.watering_frequency"
+          :days_left="plant.days_left"
       />
     </div>
   </div>

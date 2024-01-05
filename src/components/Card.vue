@@ -6,22 +6,29 @@ import {useUserStore} from "../stores/users";
 
 const userStore = useUserStore();
 
-const {plant_id, name, species, watering_frequency, last_watering} = defineProps([
+const {plant_id, name, species, watering_frequency, last_watering, next_watering, days_left} = defineProps([
   'plant_id',
   'name',
   'species',
   'watering_frequency',
-  'last_watering'
+  'last_watering',
+  'next_watering',
+  'days_left'
 ])
 
 const alreadyWatered = ref(false)
-const localLastWatering = ref('');
+let daysColor = '#8ac969'
 
-// Watch for changes in the last_watering prop
-watchEffect(() => {
-  const dateObj = new Date(last_watering);
+if (days_left === 5) {
+  daysColor = '#e3ad74'
+} else if (days_left <= 0) {
+  daysColor = '#c23434'
+}
+
+const stringOfDate = ((date) => {
+  const dateObj = new Date(date);
   const options = {day: 'numeric', month: 'long', year: 'numeric'};
-  localLastWatering.value = dateObj.toLocaleDateString('en-US', options);
+  return dateObj.toLocaleDateString('en-US', options);
 });
 
 // Computed property to calculate the time since last watering
@@ -31,6 +38,8 @@ watchEffect(() => {
   if (last_watering) {
     const lastWateringDate = new Date(last_watering);
     const currentDate = new Date();
+    lastWateringDate.setHours(0, 0, 0, 0);
+    currentDate.setHours(0, 0, 0, 0);
     const timeDifferenceMs = currentDate - lastWateringDate;
     const daysPassed = Math.floor(timeDifferenceMs / (1000 * 60 * 60 * 24));
 
@@ -38,6 +47,8 @@ watchEffect(() => {
     if (daysPassed >= 8) {
       const weeksPassed = Math.floor(daysPassed / 7);
       timeSinceLastWatering.value = `${weeksPassed} weeks ago`;
+    } else if (daysPassed === 1) {
+      timeSinceLastWatering.value = `Yesterday`
     } else if (daysPassed === 0) {
       timeSinceLastWatering.value = `Today`;
     } else {
@@ -53,7 +64,6 @@ function isToday(date) {
 }
 
 onMounted(() => {
-  console.log(typeof last_watering)
   if (isToday(last_watering)) {
     alreadyWatered.value = true;
   }
@@ -103,22 +113,21 @@ const handlePlantWatering = async (plantID) => {
           <h5>Last</h5>
           <div class="alt-corner-values">
             <p v-if="last_watering">{{ timeSinceLastWatering }},</p>
-            <p v-if='last_watering' class="last-watering-date">{{ localLastWatering }}</p>
+            <p v-if='last_watering' class="last-watering-date">{{ stringOfDate(last_watering) }}</p>
             <p v-else class="last-watering-date"> - </p>
           </div>
         </div>
         <div class="alt-corner-data">
-          <h5>Next</h5>
+          <h5>Every...</h5>
           <div class="alt-corner-values">
-            <p v-if="last_watering">{{ timeSinceLastWatering }},</p>
-            <p v-if='last_watering' class="last-watering-date">{{ localLastWatering }}</p>
-            <p v-else class="last-watering-date"> - </p>
+            <p v-if="last_watering">{{ watering_frequency }} days</p>
           </div>
         </div>
       </div>
 
-      <div class="alt-big-number">{{ watering_frequency }}</div>
-      <p class="watering-fq-text">Water every <b>{{ watering_frequency }}</b> days</p>
+      <div class="alt-big-number" v-if="days_left">{{ days_left }}</div>
+      <div class="alt-big-number" v-else>?</div>
+      <p class="watering-fq-text">days left</p>
 
     </div>
 
@@ -146,81 +155,56 @@ h2 {
 }
 
 .card .watering-fq-text {
+  color: v-bind('daysColor');
   margin-top: 32px;
   text-align: center;
 }
 
 .card .title-card-section {
-//background-image: radial-gradient(circle farthest-corner at 50% 0%, #eaf1d6 40%, #fff 75%); background: linear-gradient(180deg, rgba(234, 241, 214, 1) 30%, rgba(255, 255, 255, 1) 100%); border-radius: 10px;
+//background-image: radial-gradient(circle farthest-corner at 50% 0%, #eaf1d6 40%, #fff 75%);
+  background: linear-gradient(180deg, rgba(234, 241, 214, 1) 30%, rgba(255, 255, 255, 1) 100%);
+  border-radius: 10px;
 }
 
-.card .plant-card-body {
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  width: 100%;
-}
 
 .card .alt-plant-card-body {
-  //border: 1px solid red;
-  display: flex;
-  flex-direction: column;
+//border: 1px solid red; display: flex; flex-direction: column;
   margin: auto;
   width: 100%;
 }
 
-.plant-last-watering {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 0 24px;
-}
 
 .alt-top-wrapper {
-  //border: 1px solid greenyellow;
-  display: flex;
-  flex-direction: row;
+//border: 1px solid greenyellow; display: flex; flex-direction: row;
   justify-content: space-between;
   padding: 2px 12px;
   min-height: 66px;
 }
 
 .alt-corner-data {
-  //border: 1px solid cyan;
-  display: flex;
-  flex-direction: column;
+//border: 1px solid cyan; display: flex; flex-direction: column;
   align-items: center;
   justify-content: start;
   height: fit-content;
   min-width: 85px;
 }
 
-.plant-last-watering-values {
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
 
 .alt-corner-values {
-  //border: 1px solid purple;
-  height: fit-content;
-  display: flex;
+//border: 1px solid purple; height: fit-content; display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
 .alt-big-number {
-  //border: 1px red solid;
-
   font-family: 'Rozha One', sans-serif;
-  color: var(--light-green);
+  color: v-bind('daysColor');
   margin: 0;
   font-size: 170px;
-  line-height: 50px;
+  line-height: 80px;
   height: fit-content;
+  text-shadow: var(--dark-main-shadow) 0.02em 0.02em 12px;
 }
 
 .card .buttons-wrapper {

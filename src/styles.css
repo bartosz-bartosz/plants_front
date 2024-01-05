@@ -1,6 +1,12 @@
 :root {
-    --dark-green: #161f13;
-    --light-green: #9dc08b;
-    --lightest-green: #EDF1D6;
+    --dark-main: #161f13;
+    /*--light-main: #9dc08b;*/
+    --light-main: #bbdaac;
+    /*--lightest-main: #EDF1D6;*/
+    --lightest-main: #4d3bda;
     --success-green: #49b25b;
+    --dark-main-shadow: rgba(22, 31, 19, 0.4);
+
+    --dark-bg: #40513B;
+    --light-bg: #e6f3d9;
 }

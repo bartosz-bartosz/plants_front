@@ -9,7 +9,6 @@ const userStore = useUserStore()
 
 // const plants = ref(null)
 const plants = inject("plants")
-console.log(plants._rawValue)
 let pagination = ref(0)
 
 function isToday(date) {
@@ -22,7 +21,6 @@ onMounted(() => {
   for (let i = 0; i < plants._rawValue.length; i++) {
     const plantItem = plants._rawValue[i];
     plantItem.alreadyWatered = isToday(plantItem.last_watering);
-    console.log(plantItem.alreadyWatered);
   }
   console.log(plants);
 })

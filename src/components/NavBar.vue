@@ -55,18 +55,18 @@ const isHovered = ref(false)
   padding-left: 10px;
   padding-right: 10px;
   text-decoration: none;
-  color: #333;
+  color: var(--dark-main);
   cursor: pointer;
   padding-bottom: 10px;
-  border-bottom: #EDF1D6 8px solid;
+  border-bottom: var(--light-bg) 8px solid;
 }
 
 .links .link:hover {
-  border-bottom-color: #40513B;
+  border-bottom-color: var(--dark-bg);
 }
 
 .links .link.active {
-  border-bottom-color: #40513B;
+  border-bottom-color: var(--dark-bg);
 }
 
 .logo {
@@ -74,14 +74,14 @@ const isHovered = ref(false)
   font-size: 36px;
   font-weight: bold;
   text-decoration: none;
-  color: #40513B;
+  color: var(--dark-bg);
   padding-bottom: 1px;
-  border-bottom: #EDF1D6 8px solid;
+  border-bottom: var(--light-bg) 8px solid;
   cursor: pointer;
 }
 
 .logo:hover {
-  border-bottom: #40513B 8px solid;
+  border-bottom: var(--dark-bg) 8px solid;
 }
 
 .logo-hover-enter-active {
@@ -89,11 +89,11 @@ const isHovered = ref(false)
 }
 
 .logo-hover-enter-from {
-  border-bottom: #EDF1D6 8px solid;
+  border-bottom: var(--light-bg) 8px solid;
 }
 
 .logo-hover-enter-to, .logo-hover-leave-to {
-  border-bottom: #40513B 8px solid;
+  border-bottom: var(--dark-bg) 8px solid;
 }
 
 </style>

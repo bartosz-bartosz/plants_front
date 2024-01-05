@@ -63,7 +63,6 @@ export const useUserStore =
         const getUser = async () => {
             loadingUser.value = true
             const response = await fetchData(apiURL + `users/me`);
-            console.log(response);
 
             if (!response || !response.data) {
                 loadingUser.value = false;
@@ -75,7 +74,6 @@ export const useUserStore =
                 username: response.data.username,
                 auth_level: response.data.auth_level
             }
-            console.log(user.value);
         }
 
         return {user, errorMessage, loadingUser, clearUserStore, handleLogin, handleSignup, handleLogout, getUser}

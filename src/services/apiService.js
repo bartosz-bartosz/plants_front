@@ -15,12 +15,9 @@ const isTokenExpired = (token) => {
     try {
         const tokenData = jwt_decode(token);
         const expirationTime = tokenData.exp * 1000; // Convert to milliseconds
-        console.log('Checking if token expired')
 
         // Compare the expiration time with the current time
         const currentTime = Date.now();
-        console.log(`current time: ${currentTime}`);
-        console.log(`expiration time: ${expirationTime}`);
         return currentTime >= expirationTime;
     } catch (error) {
         // If there's an error decoding the token or the "exp" claim is missing, consider the token expired
