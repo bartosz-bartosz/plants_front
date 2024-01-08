@@ -92,44 +92,58 @@ const handlePlantWatering = async (plantID) => {
     </div>
 
     <!--BODY-->
-    <!--    <div class="plant-card-body">-->
-    <!--      <div class="plant-last-watering">-->
-    <!--        <h5>Last watering</h5>-->
-    <!--        <div class="plant-last-watering-values">-->
-    <!--          <p v-if="last_watering">{{ timeSinceLastWatering }},</p>-->
-    <!--          <p v-if='last_watering' class="last-watering-date">{{ localLastWatering }}</p>-->
-    <!--          <p v-else class="last-watering-date"> - </p>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--      <p class="watering-fq-text">Water every <b>{{ watering_frequency }}</b> days</p>-->
-
-    <!--    </div>-->
-
-    <!--BODY-->
-    <div class="alt-plant-card-body">
-
-      <div class="alt-top-wrapper">
-        <div class="alt-corner-data">
+    <div class="plant-card-body">
+      <h4>WATERING</h4>
+      <div class="watering-section">
+        <div class="plant-last-watering">
           <h5>Last</h5>
-          <div class="alt-corner-values">
+          <div class="plant-last-watering-values">
             <p v-if="last_watering">{{ timeSinceLastWatering }},</p>
             <p v-if='last_watering' class="last-watering-date">{{ stringOfDate(last_watering) }}</p>
             <p v-else class="last-watering-date"> - </p>
           </div>
         </div>
-        <div class="alt-corner-data">
+        <div class="plant-last-watering">
           <h5>Every...</h5>
-          <div class="alt-corner-values">
-            <p v-if="last_watering">{{ watering_frequency }} days</p>
+          <p class="watering-fq-text"><b>{{ watering_frequency }}</b> days</p>
+        </div>
+        <div class="plant-last-watering">
+          <h5>Next</h5>
+          <div class="plant-last-watering-values">
+            <p v-if="next_watering">{{ days_left }} days left</p>
+            <p v-if='next_watering' class="last-watering-date">{{ stringOfDate(next_watering) }}</p>
+            <p v-else class="last-watering-date"> - </p>
           </div>
         </div>
       </div>
 
-      <div class="alt-big-number" v-if="days_left">{{ days_left }}</div>
-      <div class="alt-big-number" v-else>?</div>
-      <p class="watering-fq-text">days left</p>
-
     </div>
+
+    <!--BODY-->
+    <!--    <div class="alt-plant-card-body">-->
+
+    <!--      <div class="alt-top-wrapper">-->
+    <!--        <div class="alt-corner-data">-->
+    <!--          <h5>Last</h5>-->
+    <!--          <div class="alt-corner-values">-->
+    <!--            <p v-if="last_watering">{{ timeSinceLastWatering }},</p>-->
+    <!--            <p v-if='last_watering' class="last-watering-date">{{ stringOfDate(last_watering) }}</p>-->
+    <!--            <p v-else class="last-watering-date"> - </p>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--        <div class="alt-corner-data">-->
+    <!--          <h5>Every...</h5>-->
+    <!--          <div class="alt-corner-values">-->
+    <!--            <p v-if="last_watering">{{ watering_frequency }} days</p>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </div>-->
+
+    <!--      <div class="alt-big-number" v-if="days_left">{{ days_left }}</div>-->
+    <!--      <div class="alt-big-number" v-else>?</div>-->
+    <!--      <p class="watering-fq-text">days left</p>-->
+
+    <!--    </div>-->
 
     <!--BUTTONS-->
     <div class="buttons-wrapper">
@@ -156,49 +170,47 @@ h2 {
 
 .card .watering-fq-text {
   color: v-bind('daysColor');
-  margin-top: 32px;
   text-align: center;
 }
 
 .card .title-card-section {
-//background-image: radial-gradient(circle farthest-corner at 50% 0%, #eaf1d6 40%, #fff 75%);
-  background: linear-gradient(180deg, rgba(234, 241, 214, 1) 30%, rgba(255, 255, 255, 1) 100%);
-  border-radius: 10px;
+//background-image: radial-gradient(circle farthest-corner at 50% 0%, #eaf1d6 40%, #fff 75%); background: linear-gradient(180deg, rgba(234, 241, 214, 1) 30%, rgba(255, 255, 255, 1) 100%); border-radius: 10px;
 }
 
 
-.card .alt-plant-card-body {
-//border: 1px solid red; display: flex; flex-direction: column;
-  margin: auto;
-  width: 100%;
+.card .plant-card-body {
+//border: 1px solid red; display: flex; flex-direction: column; margin: auto; width: 100%;
+  display: flex;
+}
+
+
+.card .watering-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 1rem;
 }
 
 
 .alt-top-wrapper {
-//border: 1px solid greenyellow; display: flex; flex-direction: row;
-  justify-content: space-between;
-  padding: 2px 12px;
+//border: 1px solid greenyellow; display: flex; flex-direction: row; justify-content: space-between; padding: 2px 12px;
   min-height: 66px;
 }
 
 .alt-corner-data {
-//border: 1px solid cyan; display: flex; flex-direction: column;
-  align-items: center;
-  justify-content: start;
+//border: 1px solid cyan; display: flex; flex-direction: column; align-items: center; justify-content: start;
   height: fit-content;
   min-width: 85px;
 }
 
 
 .alt-corner-values {
-//border: 1px solid purple; height: fit-content; display: flex;
-  flex-direction: column;
-  align-items: center;
+//border: 1px solid purple; height: fit-content; display: flex; flex-direction: column; align-items: center;
   justify-content: center;
 }
 
 .alt-big-number {
-  font-family: 'Rozha One', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   color: v-bind('daysColor');
   margin: 0;
   font-size: 170px;
