@@ -17,9 +17,9 @@ const {plant_id, name, species, watering_frequency, last_watering, next_watering
 ])
 
 const alreadyWatered = ref(false)
-let daysColor = '#8ac969'
 
-if (days_left === 5) {
+let daysColor = '#8ac969'
+if (days_left === 1) {
   daysColor = '#e3ad74'
 } else if (days_left <= 0) {
   daysColor = '#c23434'
@@ -110,13 +110,12 @@ const handlePlantWatering = async (plantID) => {
         <div class="plant-last-watering">
           <h5>Next</h5>
           <div class="plant-last-watering-values">
-            <p v-if="next_watering">{{ days_left }} days left</p>
-            <p v-if='next_watering' class="last-watering-date">{{ stringOfDate(next_watering) }}</p>
+            <p v-if="next_watering" class="next-watering-date">{{ days_left }} days left</p>
+            <p v-if='next_watering' class="next-watering-date">{{ stringOfDate(next_watering) }}</p>
             <p v-else class="last-watering-date"> - </p>
           </div>
         </div>
       </div>
-
     </div>
 
     <!--BODY-->
@@ -168,8 +167,14 @@ h2 {
   text-align: center;
 }
 
-.card .watering-fq-text {
+.card .next-watering-date {
   color: v-bind('daysColor');
+  font-size: 0.8em;
+  margin: auto;
+  text-align: center;
+}
+
+.card .watering-fq-text {
   text-align: center;
 }
 
