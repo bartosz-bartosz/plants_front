@@ -21,14 +21,14 @@ onMounted(async () => {
     const plants_count_res = await fetchData(apiURL + `plant/count`)
     plants_count.value = plants_count_res.data.count
 
-    const plants_res = await fetchData(apiURL + `plant?limit=${itemsLimit.value}&skip=${pagination.value * itemsLimit.value}`);
+    const plants_res = await fetchData(apiURL + `plant/list?limit=${itemsLimit.value}&skip=${pagination.value * itemsLimit.value}`);
     plants.value = plants_res.data
   }
 
 });
 
 watch(pagination, async () => {
-  const plants_res = await fetchData(apiURL + `plant?limit=${itemsLimit.value}&skip=${pagination.value * itemsLimit.value}`);
+  const plants_res = await fetchData(apiURL + `plant/list?limit=${itemsLimit.value}&skip=${pagination.value * itemsLimit.value}`);
   plants.value = plants_res.data
 });
 

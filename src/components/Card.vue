@@ -76,7 +76,6 @@ const handlePlantWatering = async (plantID) => {
     alreadyWatered.value = true;
   }
 }
-
 </script>
 
 
