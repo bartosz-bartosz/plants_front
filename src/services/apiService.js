@@ -148,8 +148,8 @@ const waterPlant = async (userID, plantID) => {
     };
 
     const formData = new FormData();
-    formData.append('user_id', userID);
     formData.append('plant_id', plantID);
+    formData.append('timestamp', new Date().toISOString());
     console.log(formData);
 
     return await axios.post(apiURL + 'watering', formData, config)

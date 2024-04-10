@@ -1,5 +1,5 @@
 <script setup>
-import {inject, onMounted, ref} from "vue";
+import {inject, onMounted, onBeforeMount, ref} from "vue";
 import {fetchData, apiURL, waterPlant} from "../services/apiService";
 import {formatDateTime, timeAgo} from "../services/dataParsing";
 import {NSpin} from 'naive-ui';
@@ -17,10 +17,12 @@ function isToday(date) {
   return today.toDateString() === compared_date.toDateString();
 }
 
-onMounted(() => {
+onBeforeMount(() => {
   for (let i = 0; i < plants._rawValue.length; i++) {
     const plantItem = plants._rawValue[i];
     plantItem.alreadyWatered = isToday(plantItem.last_watering);
+    console.log(plantItem.name)
+    console.log(plantItem.alreadyWatered);
   }
   console.log(plants);
 })
@@ -75,10 +77,10 @@ const handlePlantWatering = async (plantID) => {
         <td>{{ timeAgo(plant.last_watering) }}</td>
         <td>{{ plant.watering_frequency }} days</td>
         <td>
-          <button v-if="!plant.alreadyWatered" @click="handlePlantWatering">Water!</button>
+          <button v-if="!plant.alreadyWatered" @click="handlePlantWatering(plant.id)"> Water!</button>
           <div class="already-watered" v-else>
             <font-awesome-icon class="success-icon" icon="fa-circle-check"/>
-            <p class="success-text">Watered</p>
+            <p class="success-text">Watered today</p>
           </div>
         </td>
       </tr>

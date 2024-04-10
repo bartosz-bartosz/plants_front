@@ -149,7 +149,7 @@ const handlePlantWatering = async (plantID) => {
       <button v-if="!alreadyWatered" @click="handlePlantWatering(plant_id)">Water!</button>
       <div class="already-watered" v-else>
         <font-awesome-icon class="success-icon" icon="fa-circle-check"/>
-        <p class="success-text">Watered</p>
+        <p class="success-text">Watered today</p>
       </div>
     </div>
   </div>
