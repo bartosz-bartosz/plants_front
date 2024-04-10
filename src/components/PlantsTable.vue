@@ -21,8 +21,6 @@ onBeforeMount(() => {
   for (let i = 0; i < plants._rawValue.length; i++) {
     const plantItem = plants._rawValue[i];
     plantItem.alreadyWatered = isToday(plantItem.last_watering);
-    console.log(plantItem.name)
-    console.log(plantItem.alreadyWatered);
   }
   console.log(plants);
 })
@@ -31,7 +29,9 @@ const handlePlantWatering = async (plantID) => {
   const userID = userStore.user.id
   const response = await waterPlant(userID, plantID)
   if (response.status === 200) {
-    alreadyWatered.value = true;
+    plants[plantID].alreadyWatered = true;
+    console.log('plant updated:');
+    console.log(plants[plantID]);
   }
 }
 

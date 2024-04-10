@@ -116,33 +116,6 @@ const handlePlantWatering = async (plantID) => {
         </div>
       </div>
     </div>
-
-    <!--BODY-->
-    <!--    <div class="alt-plant-card-body">-->
-
-    <!--      <div class="alt-top-wrapper">-->
-    <!--        <div class="alt-corner-data">-->
-    <!--          <h5>Last</h5>-->
-    <!--          <div class="alt-corner-values">-->
-    <!--            <p v-if="last_watering">{{ timeSinceLastWatering }},</p>-->
-    <!--            <p v-if='last_watering' class="last-watering-date">{{ stringOfDate(last_watering) }}</p>-->
-    <!--            <p v-else class="last-watering-date"> - </p>-->
-    <!--          </div>-->
-    <!--        </div>-->
-    <!--        <div class="alt-corner-data">-->
-    <!--          <h5>Every...</h5>-->
-    <!--          <div class="alt-corner-values">-->
-    <!--            <p v-if="last_watering">{{ watering_frequency }} days</p>-->
-    <!--          </div>-->
-    <!--        </div>-->
-    <!--      </div>-->
-
-    <!--      <div class="alt-big-number" v-if="days_left">{{ days_left }}</div>-->
-    <!--      <div class="alt-big-number" v-else>?</div>-->
-    <!--      <p class="watering-fq-text">days left</p>-->
-
-    <!--    </div>-->
-
     <!--BUTTONS-->
     <div class="buttons-wrapper">
       <button @click="$router.push({name: 'plant', params: {id: plant_id}})">Show more</button>

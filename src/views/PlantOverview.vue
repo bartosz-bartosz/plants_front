@@ -1,5 +1,6 @@
 <script setup>
 import NavBar from "../components/NavBar.vue";
+import WateringHistoryChart from "../components/WateringHistoryChart.vue";
 import {useUserStore} from "../stores/users";
 import {ref, onMounted} from "vue";
 import {fetchPlant} from "../services/apiService";
@@ -21,6 +22,9 @@ onMounted(async () => {
     {{plantData.name}}
     {{plantData.watering_frequency}}
     {{plantData.last_watering}}
+  </div>
+    <div class="chart">
+      <WateringHistoryChart/>
   </div>
   </body>
 </template>
